@@ -17,7 +17,7 @@ function App() {
   }
 
   const [state, setState] = useState({
-    admin: true 
+    admin: true
   });
 
 
@@ -25,7 +25,7 @@ function App() {
     <div className="overflow">
       <div className="App">
         <Routes>
-          <Route 
+          <Route
             path="/"
             element={
               <>

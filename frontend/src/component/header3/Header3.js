@@ -5,7 +5,7 @@ import { useLocation } from "react-router";
 
 export const Header3 = () => {
     const { pathname } = useLocation();
-    
+
     return(
         <header className="flex justif-ss-betw align-cent container container-admin">
             <DropdownHeader/>

@@ -13,18 +13,18 @@ export const AuthForm = () => {
 
   const onSubmit = async (values, actions) => {
     axios.post(`https://s14nv2bq-1337.euw.devtunnels.ms/api/auth/signin`, values)
-    .then((res) => { 
+    .then((res) => {
       setCookie("tokenType", res.data.tokenType, { path: '/' });
       setCookie("accessToken", res.data.accessToken, { path: '/' });
 
       if (res.status == 200) {
-        return navigate('/adminmain') 
+        return navigate('/adminmain')
       }
     })
     .catch((er) => {
       console.log(er);
     })
-  
+
     await new Promise((resolve) => setTimeout(resolve, 1000));
     actions.resetForm();
   };
