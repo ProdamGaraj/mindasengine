@@ -1,9 +1,11 @@
 import { Header } from "./component/header/Header";
 import { Header2 } from "./component/header2/Header2";
+import { Header3 } from "./component/header3/Header3";
 import { Admin } from "./pages/admin/Admin";
 import { BrowserRouter } from "react-router-dom";
 import { Main } from "./pages/main/Main";
 import { Footer } from "./component/footer/Footer";
+import { Auth } from "./pages/auth/Auth";
 
 function App() {
   const bodyLock = () => {
@@ -12,18 +14,14 @@ function App() {
 
   return (
     <div className="App">
-      <Header 
-        bodyLock={bodyLock}
-      />
-      <Header2 />
-      
+      {/*<Header/>*/}
+      {/*<Header3 />*/}
      {/* <BrowserRouter>
           <Admin/>
           </BrowserRouter>
-      */}
-
-      <Main/>
-      <Footer/>
+  */}
+      {<Auth/>}
+      {/*<Footer/>*/}
     </div>
   );
 }
