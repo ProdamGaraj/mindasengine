@@ -1,0 +1,9 @@
+.header__contact{
+    .contact__list{
+        text-align: end;
+        font-family: 'Inter', sans-serif;
+        .list__item:last-child{
+            text-decoration: underline;
+        }
+    }
+}
