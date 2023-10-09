@@ -1,0 +1,14 @@
+.header__nav {
+  .nav__list {
+    gap: 17px;
+
+    font-family: "Exo", sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 27px;
+
+    li{
+        cursor: pointer;
+    }
+  }
+}

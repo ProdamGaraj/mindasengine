@@ -19,7 +19,7 @@ export const AboutUs = () => {
                     Северсталь, Сбербанк, Qiwi, МТС, МЕЧЕЛ, ММК и т.д.
                 </p>
 
-                <img src={aboutImg} alt="" />
+                <img src={aboutImg} alt="" className="about__img"/>
             </div>
         </div>
     )

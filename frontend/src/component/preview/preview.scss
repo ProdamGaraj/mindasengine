@@ -3,7 +3,8 @@
     position: relative;
     z-index: 0;
 
-    padding: 110px 0 100px;
+    padding-top: 110px;
+    padding-bottom: 100px;
     .preview__title {
       margin-bottom: 40px;
       font-family: "Exo";
@@ -24,7 +25,7 @@
     }
     .prewiev__img {
       position: absolute;
-      right: -62px;
+      left: 443px;
       top: 28px;
       z-index: -3;
 

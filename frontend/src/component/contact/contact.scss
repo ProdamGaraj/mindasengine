@@ -1,0 +1,13 @@
+.main__contact{
+    margin-top: 93px;
+    .contact__list{
+        .list__item{
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .list__title{
+            margin-bottom: 33px;
+        }
+    }
+}
