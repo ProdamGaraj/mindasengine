@@ -6,6 +6,7 @@ import { BrowserRouter } from "react-router-dom";
 import { Main } from "./pages/main/Main";
 import { Footer } from "./component/footer/Footer";
 import { Auth } from "./pages/auth/Auth";
+import { Route, Routes } from "react-router-dom";
 
 function App() {
   const bodyLock = () => {
@@ -14,14 +15,31 @@ function App() {
 
   return (
     <div className="App">
-      {/*<Header/>*/}
+      <Routes>
+        <Route 
+          path="/"
+          element={
+            <>
+              <Header/>
+                <Main/>
+              <Footer/>
+            </>
+          }
+        />
+          <Route
+            path="admin/*"
+            element={
+              <Admin/>
+            }
+          />
+          <Route
+            path="auth"
+            element={
+              <Auth/>
+            }
+          />
+      </Routes>
       {/*<Header3 />*/}
-     {/* <BrowserRouter>
-          <Admin/>
-          </BrowserRouter>
-  */}
-      {<Auth/>}
-      {/*<Footer/>*/}
     </div>
   );
 }

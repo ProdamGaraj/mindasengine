@@ -10,6 +10,6 @@ export const basicSchema = yup.object().shape({
     .required("Проверить"),
     text: yup
     .string()
-    .min(50)
+    .min(10)
     .required("Проверить"),
 });

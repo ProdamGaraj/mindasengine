@@ -1,4 +1,6 @@
 import "../project/projects.scss";
+import "swiper/css";
+import { Swiper, SwiperSlide } from "swiper/react";
 
 export const Projects = () => {
   const projectArray = [
@@ -24,6 +26,7 @@ export const Projects = () => {
       projectImg: "",
     },
   ];
+
   return (
     <div className="main__project container">
       <h1 className="preview__title">Наши проекты</h1>
@@ -34,15 +37,36 @@ export const Projects = () => {
               <div className="info__name">{el.projectName}</div>
               <div className="info__desc">{el.projectDesc}</div>
             </div>
-            <div className="item__img">
-              <p>{el.projectKind}</p>
-              <div className="img__list">
-                <ul>
-                  <li></li>
-                  <li></li>
-                </ul>
-              </div>
+            <div >
+              <p className="slider__title">{el.projectKind}</p>
+              <Swiper
+                spaceBetween={20}
+                slidesPerView={2}
+                className="item__swiper"
+                breakpoints={{
+                  500: {
+                    slidesPerView: 2,
+                  },
+                  100: {
+                    slidesPerView: 1,
+                  },
+                }}
+              >
+                <SwiperSlide style={{ backgroundColor: "black" }}>
+                  Slide 1
+                </SwiperSlide>
+                <SwiperSlide style={{ backgroundColor: "black" }}>
+                  Slide 2
+                </SwiperSlide>
+                <SwiperSlide style={{ backgroundColor: "black" }}>
+                  Slide 3
+                </SwiperSlide>
+                <SwiperSlide style={{ backgroundColor: "black" }}>
+                  Slide 4
+                </SwiperSlide>
+              </Swiper>
             </div>
+                
           </li>
         ))}
       </ul>

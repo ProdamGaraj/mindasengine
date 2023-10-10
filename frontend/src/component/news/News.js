@@ -1,6 +1,28 @@
 import "../news/news.scss";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 export const News = () => {
+    const [state, setState] = useState({
+        newsList: [],
+        limit:3 
+      });
+
+    useEffect(() => {
+        axios
+          .get(`https://jsonplaceholder.typicode.com/albums/?_limit=${state.limit}`)
+          .then((res) => {
+            setState({ ...state, projectList: res.data });
+          })
+          .catch((er) => {
+            console.log(er);
+          });
+      }, [state.limit]);
+    
+      const dataHandler = () => {
+        setState({ ...state, limit: ++state.limit });
+      }
+
     const newsArray = [
         {
             newsName: 'Новость 1',
@@ -50,7 +72,7 @@ export const News = () => {
                 ))}
             </ul>
             <div className="news__btn flex justif-ss-cent">
-                <button>Показать ещё</button>
+                <button onClick={dataHandler}>Показать ещё</button>
             </div>
         </div>
     )

@@ -10,15 +10,11 @@ body {
   padding-top: 8px;
   padding-bottom: 8px;
   font-family: 'Exo', sans-serif;
+  
   &.lock{
     overflow: hidden;
   }
 }
-
-#root{
-  overflow-x: hidden;
-}
-
 
 .align-cent{
   align-items: center;
@@ -52,5 +48,8 @@ code {
     monospace;
 }
 
+.container-admin{
+  max-width: 876px;
+}
 
 

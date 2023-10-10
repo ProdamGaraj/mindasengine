@@ -1,0 +1,39 @@
+.header__burger{
+    display: none;
+    @media (max-width:860px) {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+
+        span{
+            display: block;
+            width: 40px;
+            height: 5px;
+
+            background-color: black;
+
+            transition: all 0.3s;
+        }
+
+        &.active{
+            span:nth-child(1){
+
+                transform: rotate(45deg);
+                transform-origin: 0%;
+            }
+
+            span:nth-child(2){
+                transform: rotate(-45deg);
+                transform-origin: 30%;
+            }
+        }
+    }
+}
+
+.mob_nav{
+    display: none;
+    @media (max-width:860px) {
+        display: block;
+    }
+
+}
