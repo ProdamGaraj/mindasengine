@@ -6,7 +6,7 @@ export const News = () => {
     const [state, setState] = useState({
         newsList: [],
         newsImgList: [],
-        limit:3 
+        limit:3
       });
 
     useEffect(() => {
@@ -19,7 +19,7 @@ export const News = () => {
             console.log(er);
           });
       }, [state.limit]);
-    
+
       const dataHandler = () => {
         setState({ ...state, limit: ++state.limit });
       }
@@ -74,7 +74,7 @@ export const News = () => {
             </ul>
             <div className="news__btn flex justif-ss-cent">
                 {state.newsList.length > 3 ? <button onClick={dataHandler}>Показать ещё</button> : <></>}
-                
+
             </div>
         </div>
     )

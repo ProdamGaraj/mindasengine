@@ -7,7 +7,7 @@ import { useCookies } from "react-cookie";
 
 export const FormNews = () => {
   const [cookies, setCookie, removeCookie] = useCookies();
-  
+
   const header = {
     Authorization:`${cookies.tokenType} ${cookies.accessToken}`
   }

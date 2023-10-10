@@ -9,7 +9,7 @@ header{
     background-color: #fff;
     @media (max-width:768px) {
         .header__wrapper{
-           justify-content: center; 
+           justify-content: center;
 
            img{
             width: calc(155px + 71 * (100vw / 1920));
@@ -22,7 +22,7 @@ header{
         .dropdown{
             display: none;
         }
-        
+
     }
 
     .mob_nav{

@@ -21,6 +21,6 @@ export const Admin = () => {
         <FormNews />
     </main>
     </>
-    
+
   );
 };

@@ -30,7 +30,7 @@ export const Projects = () => {
   ];
   const [state, setState] = useState({
     projectList: [],
-    limit:3 
+    limit:3
   });
 
 useEffect(() => {
@@ -67,7 +67,7 @@ useEffect(() => {
                 breakpoints={{
                   750: {
                     slidesPerView: 2,
-                    
+
                   },
                   700: {
                     slidesPerView: 1,
@@ -91,7 +91,7 @@ useEffect(() => {
                 </SwiperSlide>
               </Swiper>
             </div>
-                
+
           </li>
         ))}
       </ul>
