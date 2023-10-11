@@ -1,8 +1,8 @@
-package com.prodamgarage.mindasengine.security;
+package com.prodamgarage.mindasengine.config;
 
 import com.prodamgarage.mindasengine.security.jwt.AuthEntryPointJwt;
 import com.prodamgarage.mindasengine.security.jwt.AuthTokenFilter;
-import com.prodamgarage.mindasengine.security.services.UserDetailsServiceImpl;
+import com.prodamgarage.mindasengine.services.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -50,7 +50,8 @@ public class WebSecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth ->
                         auth.requestMatchers("/api/auth/**").permitAll()
-                                .requestMatchers("/api/test/**").permitAll()
+                                .requestMatchers("/user/**").permitAll()
+                                .requestMatchers("/image/**").permitAll()
                                 .anyRequest().authenticated()
                 );
 

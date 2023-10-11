@@ -1,4 +1,4 @@
-package com.prodamgarage.mindasengine.security.services;
+package com.prodamgarage.mindasengine.services;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.prodamgarage.mindasengine.models.User;

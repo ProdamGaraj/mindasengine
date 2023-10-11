@@ -7,7 +7,7 @@ import com.prodamgarage.mindasengine.payload.response.JwtResponse;
 import com.prodamgarage.mindasengine.payload.response.MessageResponse;
 import com.prodamgarage.mindasengine.repository.UserRepository;
 import com.prodamgarage.mindasengine.security.jwt.JwtUtils;
-import com.prodamgarage.mindasengine.security.services.UserDetailsImpl;
+import com.prodamgarage.mindasengine.services.UserDetailsImpl;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

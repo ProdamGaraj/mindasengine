@@ -1,6 +1,6 @@
 package com.prodamgarage.mindasengine.security.jwt;
 
-import com.prodamgarage.mindasengine.security.services.UserDetailsServiceImpl;
+import com.prodamgarage.mindasengine.services.UserDetailsServiceImpl;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

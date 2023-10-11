@@ -1,6 +1,6 @@
 package com.prodamgarage.mindasengine.security.jwt;
 
-import com.prodamgarage.mindasengine.security.services.UserDetailsImpl;
+import com.prodamgarage.mindasengine.services.UserDetailsImpl;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;

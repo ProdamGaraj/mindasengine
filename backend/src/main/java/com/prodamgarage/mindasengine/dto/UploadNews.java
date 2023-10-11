@@ -1,0 +1,23 @@
+package com.prodamgarage.mindasengine.dto;
+
+import lombok.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.time.LocalDate;
+import java.util.List;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@RequiredArgsConstructor
+public class UploadNews {
+    private Long id;
+    @NonNull
+    private String name;
+    @NonNull
+    private String description;
+    @NonNull
+    private LocalDate publication;
+    @NonNull
+    private List<MultipartFile> multipartFiles;
+}
