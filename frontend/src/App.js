@@ -6,12 +6,19 @@ import { BrowserRouter } from "react-router-dom";
 import { Main } from "./pages/main/Main";
 import { Footer } from "./component/footer/Footer";
 import { Auth } from "./pages/auth/Auth";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, RedirectFunction } from "react-router-dom";
+import { AdminMain } from "./pages/adminMain/AdminMain";
+
+import { useState } from "react";
 
 function App() {
   const bodyLock = () => {
     document.body.classList.toggle('lock');
   }
+
+  const [state, setState] = useState({
+    admin: false 
+  });
 
   return (
     <div className="App">
@@ -30,6 +37,14 @@ function App() {
             path="admin/*"
             element={
               <Admin/>
+            }
+          />
+          <Route
+            path="admin-main/*"
+            element={
+              <AdminMain 
+                admin={state.admin}
+              />
             }
           />
           <Route

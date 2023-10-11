@@ -32,3 +32,4 @@ build/
 ### VS Code ###
 .vscode/
 backend/src/main/resources/application.properties
+frontend/node_modules

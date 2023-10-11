@@ -10,9 +10,9 @@ export const Main = () => {
       <section id="preview">
         <Preview />
       </section>
-      <section id="project"><Projects /></section>
-      <section id="aboutUs"><AboutUs /></section>
       <section id="news"><News /></section>
+      <section id="aboutUs"><AboutUs /></section>
+      <section id="project"><Projects /></section>
       <section id="contacts"><Contact /></section>
     </main>
   );

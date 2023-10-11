@@ -1,9 +1,16 @@
 import { Formik, Form, Field, useFormik } from "formik";
 import "../authForm/AuthForm.scss";
+import axios from "axios";
 
 const onSubmit = async (values, actions) => {
-  console.log(values);
-  console.log(actions);
+  axios.post("https://", values)
+  .then((res) => {
+    //res.data
+  })
+  .catch((er) => {
+    console.log(er);
+  })
+
   await new Promise((resolve) => setTimeout(resolve, 1000));
   actions.resetForm();
 };
