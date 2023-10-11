@@ -1,34 +1,21 @@
 import { Formik, Form, Field, useFormik } from "formik";
 import "../authForm/AuthForm.scss";
 import axios from "axios";
-import baseURL from '../../axios';
 
-import { useCookies } from "react-cookie";
-import { useNavigate } from "react-router";
+const onSubmit = async (values, actions) => {
+  axios.post("https://", values)
+  .then((res) => {
+    //res.data
+  })
+  .catch((er) => {
+    console.log(er);
+  })
+
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+  actions.resetForm();
+};
 
 export const AuthForm = () => {
-  let navigate = useNavigate();
-  const [cookies, setCookie, removeCookie] = useCookies(["admin"]);
-
-
-  const onSubmit = async (values, actions) => {
-    axios.post(`https://s14nv2bq-1337.euw.devtunnels.ms/api/auth/signin`, values)
-    .then((res) => {
-      setCookie("tokenType", res.data.tokenType, { path: '/' });
-      setCookie("accessToken", res.data.accessToken, { path: '/' });
-
-      if (res.status == 200) {
-        return navigate('/adminmain')
-      }
-    })
-    .catch((er) => {
-      console.log(er);
-    })
-
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    actions.resetForm();
-  };
-
   const {
     values,
     errors,
@@ -39,12 +26,11 @@ export const AuthForm = () => {
     handleSubmit,
   } = useFormik({
     initialValues: {
-      username: "",
       password: "",
+      login: "",
     },
     onSubmit,
   });
-
   return (
     <>
       <div className="authForm container">
@@ -58,18 +44,18 @@ export const AuthForm = () => {
             className="authForm__form"
           >
             <input
-              id="username"
+              id="login"
               type="text"
               placeholder="Логин"
-              value={values.username}
+              value={values.login}
               onChange={handleChange}
               onBlur={handleBlur}
-              className={errors.username && touched.username ? "input-error" : ""}
+              className={errors.login && touched.login ? "input-error" : ""}
             />
             
             <input
               id="password"
-              type="password"
+              type="text"
               placeholder="Пароль"
               value={values.password}
               onChange={handleChange}
