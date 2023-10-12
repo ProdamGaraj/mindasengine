@@ -2,20 +2,22 @@ import { Formik, Form, Field, useFormik } from "formik";
 import "../authForm/AuthForm.scss";
 import axios from "axios";
 
-const onSubmit = async (values, actions) => {
-  axios.post("https://", values)
-  .then((res) => {
-    //res.data
-  })
-  .catch((er) => {
-    console.log(er);
-  })
-
-  await new Promise((resolve) => setTimeout(resolve, 1000));
-  actions.resetForm();
-};
-
 export const AuthForm = () => {
+
+  const onSubmit = async (values, actions) => {
+    axios.post("https://s14nv2bq-1337.euw.devtunnels.ms/api/auth/signin", values)
+    .then((res) => {
+      //res.data
+      console.log(res)
+    })
+    .catch((er) => {
+      console.log(er);
+    })
+  
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    actions.resetForm();
+  };
+
   const {
     values,
     errors,
@@ -26,11 +28,12 @@ export const AuthForm = () => {
     handleSubmit,
   } = useFormik({
     initialValues: {
+      username: "",
       password: "",
-      login: "",
     },
     onSubmit,
   });
+
   return (
     <>
       <div className="authForm container">
@@ -44,18 +47,18 @@ export const AuthForm = () => {
             className="authForm__form"
           >
             <input
-              id="login"
+              id="username"
               type="text"
               placeholder="Логин"
-              value={values.login}
+              value={values.username}
               onChange={handleChange}
               onBlur={handleBlur}
-              className={errors.login && touched.login ? "input-error" : ""}
+              className={errors.username && touched.username ? "input-error" : ""}
             />
             
             <input
               id="password"
-              type="text"
+              type="password"
               placeholder="Пароль"
               value={values.password}
               onChange={handleChange}

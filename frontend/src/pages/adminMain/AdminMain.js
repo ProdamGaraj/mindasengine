@@ -60,10 +60,6 @@ export const AdminMain = (props) => {
 
           <div className="filter__radio">
             <label>
-              <span>Все</span>
-              <input type="radio" name="show" id="" value="all" />
-            </label>
-            <label>
               <span>Новости</span>
               <input type="radio" name="show" id="" value="news" />
             </label>

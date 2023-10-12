@@ -1,6 +1,8 @@
 import "../project/projects.scss";
 import "swiper/css";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { useState,useEffect } from "react";
+import axios from "axios";
 
 export const Projects = () => {
   const projectArray = [
@@ -26,12 +28,31 @@ export const Projects = () => {
       projectImg: "",
     },
   ];
+  const [state, setState] = useState({
+    projectList: [],
+    limit:3 
+  });
 
+useEffect(() => {
+    axios
+      .get(`https://s14nv2bq-1337.euw.devtunnels.ms/user/project`)
+      .then((res) => {
+        setState({ ...state, projectList: res.data });
+        console.log(state.projectList);
+      })
+      .catch((er) => {
+        console.log(er);
+      });
+  }, [state.limit]);
+
+  const dataHandler = () => {
+    setState({ ...state, limit: ++state.limit });
+  }
   return (
     <div className="main__project container">
       <h1 className="preview__title">Наши проекты</h1>
       <ul className="project__list">
-        {projectArray.map((el, i) => (
+        {state.projectList.map((el, i) => (
           <li className="item flex justif-ss-betw">
             <div className="item__info">
               <div className="info__name">{el.projectName}</div>

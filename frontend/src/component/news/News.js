@@ -10,9 +10,10 @@ export const News = () => {
 
     useEffect(() => {
         axios
-          .get(`https://jsonplaceholder.typicode.com/albums/?_limit=${state.limit}`)
+          .get(`https://s14nv2bq-1337.euw.devtunnels.ms/user/news`)
           .then((res) => {
-            setState({ ...state, projectList: res.data });
+            setState({ ...state, newsList: res.data });
+            console.log(state.newsList);
           })
           .catch((er) => {
             console.log(er);
@@ -50,7 +51,7 @@ export const News = () => {
             </div>
 
             <ul className="news__list">
-                {newsArray.map((el,i) => (
+                {state.newsList.map((el,i) => (
                     <li className="item">
                         <div className="item__title flex justif-ss-betw">
                             <div className="item__name">
