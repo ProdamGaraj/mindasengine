@@ -10,10 +10,12 @@ export const Admin = () => {
       <main className="adminPage container container-admin">
       <div className="admin__public">
         <div className="public__title flex justif-ss-betw align-cent">
-          <p>Новая публикация</p> 
+          <p>Новая публикация</p>
+          <Link to='adminmain'>
           <button>
             Отмена
           </button>
+          </Link>
         </div>
       </div>
         <FormNews />

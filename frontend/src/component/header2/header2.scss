@@ -1,14 +1,28 @@
 header{
-    @media (max-width:860px) {
+    position: fixed;
+    z-index: 99999;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding-top: -8px;
+
+    background-color: #fff;
+    @media (max-width:768px) {
+        .header__wrapper{
+           justify-content: center; 
+
+           img{
+            width: calc(155px + 71 * (100vw / 1920));
+            height: calc(42px + 19 * (100vw / 1920));
+           }
+        }
         .header__nav{
             display: none;
         }
         .dropdown{
             display: none;
         }
-        .header__burger{
-            display: flex;
-        }
+        
     }
 
     .mob_nav{

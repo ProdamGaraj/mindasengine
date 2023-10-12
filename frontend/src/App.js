@@ -1,4 +1,3 @@
-import { Header } from "./component/header/Header";
 import { Header2 } from "./component/header2/Header2";
 import { Header3 } from "./component/header3/Header3";
 import { Admin } from "./pages/admin/Admin";
@@ -10,6 +9,7 @@ import { Route, Routes, RedirectFunction } from "react-router-dom";
 import { AdminMain } from "./pages/adminMain/AdminMain";
 
 import { useState } from "react";
+import { AdminEdit } from "./pages/admidEdit/AdminEdit";
 
 function App() {
   const bodyLock = () => {
@@ -21,42 +21,46 @@ function App() {
   });
 
 
-
   return (
-    <div className="App">
-      <Routes>
-        <Route 
-          path="/"
-          element={
-            <>
-              <Header/>
-                <Main/>
-              <Footer/>
-            </>
-          }
-        />
-          <Route
-            path="admin/*"
+    <div className="overflow">
+      <div className="App">
+        <Routes>
+          <Route 
+            path="/"
             element={
-              <Admin/>
+              <>
+                <Header2/>
+                  <Main/>
+                <Footer/>
+              </>
             }
           />
-          <Route
-            path="admin-main/*"
-            element={
-              <AdminMain 
-                admin={state.admin}
-              />
-            }
-          />
-          <Route
-            path="auth"
-            element={
-              <Auth/>
-            }
-          />
-      </Routes>
-      {/*<Header3 />*/}
+            <Route
+              path="adminmain/add"
+              element={
+                <Admin/>
+              }
+            />
+            <Route
+              path="adminmain/*"
+              element={
+                <AdminMain />
+              }
+            />
+            <Route
+              path="auth"
+              element={
+                <Auth/>
+              }
+            />
+            <Route
+              path="adminmain/edit"
+              element={
+                <AdminEdit/>
+              }
+            />
+        </Routes>
+      </div>
     </div>
   );
 }

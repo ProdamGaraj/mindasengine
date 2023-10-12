@@ -4,8 +4,8 @@ import "../preview/preview.scss";
 export const Preview = () => {
     return(
         <div className="main__preview container">
-        <h2 className="preview__title">Mind As Engine (MAE)</h2>
         <div className="preview__text">
+          <h2 className="preview__title">Mind As Engine (MAE)</h2>
           <p>
             В Республике Узбекистан МАЕ реализует проекты в следующих областях,
             системы корпоративного обучения BilimBank, разрабатывает цифровые

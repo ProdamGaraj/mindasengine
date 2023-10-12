@@ -1,14 +1,25 @@
 import { Formik, Form, Field, useFormik } from "formik";
 import "../authForm/AuthForm.scss";
 import axios from "axios";
+import baseURL from '../../axios';
+
+import { useCookies } from "react-cookie";
+import { useNavigate } from "react-router";
 
 export const AuthForm = () => {
+  let navigate = useNavigate();
+  const [cookies, setCookie, removeCookie] = useCookies(["admin"]);
+
 
   const onSubmit = async (values, actions) => {
-    axios.post("https://s14nv2bq-1337.euw.devtunnels.ms/api/auth/signin", values)
-    .then((res) => {
-      //res.data
-      console.log(res)
+    axios.post(`https://s14nv2bq-1337.euw.devtunnels.ms/api/auth/signin`, values)
+    .then((res) => { 
+      setCookie("tokenType", res.data.tokenType, { path: '/' });
+      setCookie("accessToken", res.data.accessToken, { path: '/' });
+
+      if (res.status == 200) {
+        return navigate('/adminmain') 
+      }
     })
     .catch((er) => {
       console.log(er);

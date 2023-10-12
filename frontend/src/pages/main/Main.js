@@ -4,6 +4,8 @@ import { AboutUs } from "../../component/aboutUs/AboutUs";
 import { News } from "../../component/news/News";
 import { Contact } from "../../component/contact/Contact";
 
+import "../main/main.scss";
+
 export const Main = () => {
   return (
     <main className="main">

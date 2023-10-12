@@ -8,13 +8,13 @@ export const HeaderNav = () => {
         <li className="nav__item">
           <Link
             activeClass="active"
-            to="project"
+            to="news"
             spy={true}
             smooth={true}
             offset={-70}
             duration={700}
           >
-            Наши проекты
+            Новости
           </Link>
         </li>
         <li className="nav__item">
@@ -29,8 +29,8 @@ export const HeaderNav = () => {
           </Link>
         </li>
         <li className="nav__item">
-          <Link to="news" spy={true} smooth={true} offset={-70} duration={1100}>
-            Новости
+          <Link to="project" spy={true} smooth={true} offset={-70} duration={1100}>
+            Наши проекты
           </Link>
         </li>
         <li className="nav__item">

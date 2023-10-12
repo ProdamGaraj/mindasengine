@@ -38,7 +38,6 @@ useEffect(() => {
       .get(`https://s14nv2bq-1337.euw.devtunnels.ms/user/project`)
       .then((res) => {
         setState({ ...state, projectList: res.data });
-        console.log(state.projectList);
       })
       .catch((er) => {
         console.log(er);
@@ -48,6 +47,7 @@ useEffect(() => {
   const dataHandler = () => {
     setState({ ...state, limit: ++state.limit });
   }
+
   return (
     <div className="main__project container">
       <h1 className="preview__title">Наши проекты</h1>
@@ -55,8 +55,8 @@ useEffect(() => {
         {state.projectList.map((el, i) => (
           <li className="item flex justif-ss-betw">
             <div className="item__info">
-              <div className="info__name">{el.projectName}</div>
-              <div className="info__desc">{el.projectDesc}</div>
+              <div className="info__name">{el.project.name}</div>
+              <div className="info__desc">{el.project.description}</div>
             </div>
             <div >
               <p className="slider__title">{el.projectKind}</p>
@@ -65,8 +65,12 @@ useEffect(() => {
                 slidesPerView={2}
                 className="item__swiper"
                 breakpoints={{
-                  500: {
+                  750: {
                     slidesPerView: 2,
+                    
+                  },
+                  700: {
+                    slidesPerView: 1,
                   },
                   100: {
                     slidesPerView: 1,

@@ -1,12 +1,11 @@
 .main__project {
-  margin-top: 100px;
+  margin-top: calc(50px + 50 * (100vw / 1920));
   .preview__title {
-    margin-bottom: 40px;
-
+    margin-bottom: calc(5px + 35 * (100vw / 1920));
     font-family: "Exo", sans-serif;
-    font-size: 40px;
+    font-size: calc(22px + 15 * (100vw / 1920));
     font-weight: 600;
-    line-height: 53px;
+    line-height: calc(35px + 18 * (100vw / 1920));
   }
   .project__list {
     display: flex;
@@ -19,15 +18,18 @@
       flex-direction: column;
       gap: 15px;
     }
+    @media (max-width: 770px) {
+      gap: 10px;
+    }
     &__info {
       display: flex;
       flex-direction: column;
       gap: 20px;
       .info__name {
         font-family: "Exo", sans-serif;
-        font-size: 32px;
         font-weight: 600;
-        line-height: 38px;
+        font-size: calc(20px + 12 * (100vw / 1920));
+        line-height: calc(25px + 13 * (100vw / 1920));
 
         color: rgba(10, 164, 174, 1);
       }
@@ -39,29 +41,40 @@
         width: 100%;
 
         font-family: "Exo", sans-serif;
-        font-size: 20px;
         font-weight: 400;
         line-height: 27px;
+        font-size: calc(14px + 6 * (100vw / 1920));
       }
     }
     .slider__title {
       margin-bottom: 20px;
       font-family: "Inter", sans-serif;
-    font-size: 20px;
-    font-weight: 400;
-    line-height: 24px;
+      font-size: calc(16px + 4 * (100vw / 1920));
+      line-height: calc(15px + 9 * (100vw / 1920));
+      font-weight: 400;
     }
   }
 }
 .item__swiper {
-  
-  .swiper-wrapper{
+  .swiper-wrapper {
     max-width: 780px;
+    @media (max-width:1199px) {
+      max-width: 780px;
+      width: auto;
+
+      .swiper-slide{
+        max-width: none;
+        width: auto;
+      }
+    }
   }
   .swiper-slide {
     max-width: 380px;
-    width: 100% ;
+    width: 100%;
     height: 168px;
     background-color: #000;
+    @media (max-width:980px) {
+      max-width: none;
+    }
   }
 }

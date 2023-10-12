@@ -5,6 +5,7 @@ import axios from "axios";
 export const News = () => {
     const [state, setState] = useState({
         newsList: [],
+        newsImgList: [],
         limit:3 
       });
 
@@ -13,7 +14,6 @@ export const News = () => {
           .get(`https://s14nv2bq-1337.euw.devtunnels.ms/user/news`)
           .then((res) => {
             setState({ ...state, newsList: res.data });
-            console.log(state.newsList);
           })
           .catch((er) => {
             console.log(er);
@@ -23,7 +23,6 @@ export const News = () => {
       const dataHandler = () => {
         setState({ ...state, limit: ++state.limit });
       }
-
     const newsArray = [
         {
             newsName: 'Новость 1',
@@ -55,25 +54,27 @@ export const News = () => {
                     <li className="item">
                         <div className="item__title flex justif-ss-betw">
                             <div className="item__name">
-                                {el.newsName}
+                                {el.news.name}
                             </div>
                             <div className="item__date">
-                                {el.newsDate}
+                                {el.news.publication}
                             </div>
                         </div>
                         <div className="item__main flex justif-ss-betw">
                             <div className="item__img">
 
                             </div>
+                            {el.files}
                             <div className="item__content">
-                                {el.newsContent}
+                                {el.news.description}
                             </div>
                         </div>
                     </li>
                 ))}
             </ul>
             <div className="news__btn flex justif-ss-cent">
-                <button onClick={dataHandler}>Показать ещё</button>
+                {state.newsList.length > 3 ? <button onClick={dataHandler}>Показать ещё</button> : <></>}
+                
             </div>
         </div>
     )

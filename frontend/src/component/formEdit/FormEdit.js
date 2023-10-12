@@ -1,41 +1,22 @@
-import { Formik, Form, Field } from "formik";
-import { basicSchema } from "../../component/form/schema.js";
-import { useState } from "react";
-import DatePicker from "react-date-picker";
 import axios from "axios";
-import { useCookies } from "react-cookie";
+import { Formik, Form, Field } from "formik";
 
-export const FormNews = () => {
-  const [cookies, setCookie, removeCookie] = useCookies();
-  
-  const header = {
-    Authorization:`${cookies.tokenType} ${cookies.accessToken}`
-  }
-
-  return (
-    <>
-      <Formik
+export const FormEdit = () => {
+    return(
+        <>
+        <Formik
         initialValues={{
           picked: "",
-          name: "",
-          description: "",
+          title: "",
+          text: "",
           file: "",
-          publication:'2023-12-12'
         }}
         onSubmit={async (values, actions) => {
-            await axios
-            .post("https://s14nv2bq-1337.euw.devtunnels.ms/moderator/upload/news", values, header)
+          await axios
+            .post("http://localhost:1337/project", values)
             .then(actions.resetForm())
             .catch(er => console.log(er))
-
-          if (values.picked == "project") {
-            await axios
-            .post("https://s14nv2bq-1337.euw.devtunnels.ms/moderator/upload/project", values, header)
-            .then(actions.resetForm())
-            .catch(er => console.log(er))
-          }
         }}
-        validationSchema={basicSchema}
       >
         {({ values, errors, touched }) => (
           <Form className="form__news">
@@ -115,7 +96,6 @@ export const FormNews = () => {
             <button type="submit">Submit</button>
           </Form>
         )}
-      </Formik>
-    </>
-  );
-};
+      </Formik></>
+    )
+}
