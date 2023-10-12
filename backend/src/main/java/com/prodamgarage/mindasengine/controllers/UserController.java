@@ -14,7 +14,7 @@ import java.util.List;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/landing")
 public class UserController {
     private final ProjectService projectService;
     private final NewsService newsService;
@@ -22,7 +22,7 @@ public class UserController {
         this.projectService = projectService;
         this.newsService = newsService;
     }
-    @GetMapping("/project")
+    @GetMapping("/projects")
     public ResponseEntity<List<ProjectDTO>> allProject() {
         List<ProjectDTO> projects = projectService.getAllProjects();
         if (projects == null) {

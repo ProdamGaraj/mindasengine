@@ -28,7 +28,7 @@ public class ModeratorController {
 
 
 
-    @GetMapping("/all/project")
+    @GetMapping("/get/projects")
     public ResponseEntity<List<ProjectDTO>> allProject() {
         List<ProjectDTO> projects = projectService.getAllProjects();
         if (projects == null) {
@@ -47,7 +47,7 @@ public class ModeratorController {
         return ResponseEntity.ok("Delete project");
     }
     @PutMapping("/update/project")
-    public ResponseEntity<?> updateProject(UploadProject uploadProject) throws IOException {
+    public ResponseEntity<?> updateProject(UploadProject uploadProject) {
         projectService.updateProject(new Project(uploadProject.getName(), uploadProject.getDescription()), uploadProject.getMultipartFiles(), uploadProject.getId());
         return ResponseEntity.ok("Update project");
     }
@@ -55,7 +55,7 @@ public class ModeratorController {
 
 
 
-    @GetMapping("/all/news")
+    @GetMapping("/get/news")
     public ResponseEntity<List<NewsDTO>> allNews() {
         List<NewsDTO> news = newsService.getAllNews();
         if (news == null) {
@@ -74,7 +74,7 @@ public class ModeratorController {
         return ResponseEntity.ok("Delete news");
     }
     @PutMapping("/update/news")
-    public ResponseEntity<?> updateNews(UploadNews uploadNews) throws IOException {
+    public ResponseEntity<?> updateNews(UploadNews uploadNews) {
         newsService.updateNews(new News(uploadNews.getName(), uploadNews.getDescription(), uploadNews.getPublication()), uploadNews.getMultipartFiles(), uploadNews.getId());
         return ResponseEntity.ok("Update news");
     }
