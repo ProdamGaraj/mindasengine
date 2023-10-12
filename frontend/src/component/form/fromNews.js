@@ -4,6 +4,7 @@ import { useState } from "react";
 import DatePicker from "react-date-picker";
 import axios from "axios";
 import { useCookies } from "react-cookie";
+import baseURL from "../../axios.js";
 
 export const FormNews = () => {
   const [cookies, setCookie, removeCookie] = useCookies();
@@ -24,13 +25,13 @@ export const FormNews = () => {
         }}
         onSubmit={async (values, actions) => {
             await axios
-            .post("https://s14nv2bq-1337.euw.devtunnels.ms/moderator/upload/news", values, header)
+            .post(`${baseURL}/moderator/upload/news`, values, header)
             .then(actions.resetForm())
             .catch(er => console.log(er))
 
           if (values.picked == "project") {
             await axios
-            .post("https://s14nv2bq-1337.euw.devtunnels.ms/moderator/upload/project", values, header)
+            .post(`${baseURL}/moderator/upload/project`, values, header)
             .then(actions.resetForm())
             .catch(er => console.log(er))
           }

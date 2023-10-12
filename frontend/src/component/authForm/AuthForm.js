@@ -1,9 +1,10 @@
 import { Formik, Form, Field, useFormik } from "formik";
 import "../authForm/AuthForm.scss";
 import axios from "axios";
+import baseURL from "../../axios";
 
 const onSubmit = async (values, actions) => {
-  axios.post("https://", values)
+  axios.post(`${baseURL}/`, values)
   .then((res) => {
     //res.data
   })

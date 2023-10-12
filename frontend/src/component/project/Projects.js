@@ -3,6 +3,7 @@ import "swiper/css";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useState,useEffect } from "react";
 import axios from "axios";
+import baseURL from "../../axios";
 
 export const Projects = () => {
   const projectArray = [
@@ -35,7 +36,7 @@ export const Projects = () => {
 
 useEffect(() => {
     axios
-      .get(`https://s14nv2bq-1337.euw.devtunnels.ms/user/project`)
+      .get(`${baseURL}/user/project`)
       .then((res) => {
         setState({ ...state, projectList: res.data });
       })

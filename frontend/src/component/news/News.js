@@ -1,6 +1,7 @@
 import "../news/news.scss";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import baseURL from "../../axios";
 
 export const News = () => {
     const [state, setState] = useState({
@@ -8,10 +9,9 @@ export const News = () => {
         newsImgList: [],
         limit:3
       });
-
     useEffect(() => {
         axios
-          .get(`https://s14nv2bq-1337.euw.devtunnels.ms/user/news`)
+          .get(`${baseURL}/user/news`)
           .then((res) => {
             setState({ ...state, newsList: res.data });
           })
