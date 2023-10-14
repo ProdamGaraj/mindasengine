@@ -63,7 +63,7 @@ export const News = () => {
                                 >
                                     {el.files.map((file, index) => (
                                         <SwiperSlide style={{ backgroundColor: "black" }}>
-\                                           <img src={"http://localhost:1337/images/" + file} alt="Don't show" ></img>
+                                           <img src={"http://localhost:1337/images/" + file} alt="Don't show" ></img>
                                         </SwiperSlide>
                                     ))}
                                 </Swiper>
