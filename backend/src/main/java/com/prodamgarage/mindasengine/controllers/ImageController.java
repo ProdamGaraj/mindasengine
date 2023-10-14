@@ -38,28 +38,12 @@ public class ImageController {
         this.photoRepository = photoRepository;
         this.photoService = photoService;
     }
-/*    @GetMapping("/{imageName}")
-    public ResponseEntity<Resource> getImage(@PathVariable String imageName) {
-        Resource resource = resourceLoader.getResource(uploadPath + "/" + imageName);
-        return ResponseEntity.ok().body(resource);
-    }*/
+
     @Async
     @GetMapping(value = "/{imageName}", produces = MediaType.IMAGE_JPEG_VALUE)
     public ResponseEntity<byte[]> serveFile(@PathVariable String imageName) throws IOException {
         Resource resource = photoService.loadFileAsResource(imageName);
         return ResponseEntity.ok().body(resource.getContentAsByteArray());
-    }
-
-    @GetMapping(value = "/system", produces = MediaType.IMAGE_JPEG_VALUE)
-    public ResponseEntity<Resource> serveSystemFile() throws IOException {
-        final ByteArrayResource inputStream = new ByteArrayResource(Files.readAllBytes(Paths.get(uploadPath +
-                "/35a8b619-ea29-48f0-906d-90943a16e3b0.Лаб_1.png"
-        )));
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .contentType(MediaType.IMAGE_PNG)
-                .contentLength(inputStream.contentLength())
-                .body(inputStream);
     }
 
     @GetMapping("/news")
