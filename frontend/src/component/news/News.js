@@ -1,7 +1,9 @@
 import "../news/news.scss";
 import { useEffect, useState } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
 import axios from "axios";
-import baseURL from "../../axios";
+
+const baseUrl = "http://localhost:1337"
 
 export const News = () => {
     const [state, setState] = useState({
@@ -9,9 +11,10 @@ export const News = () => {
         newsImgList: [],
         limit:3
       });
+
     useEffect(() => {
         axios
-          .get(`${baseURL}/user/news`)
+          .get(baseUrl + `/news`)
           .then((res) => {
             setState({ ...state, newsList: res.data });
           })
@@ -23,32 +26,11 @@ export const News = () => {
       const dataHandler = () => {
         setState({ ...state, limit: ++state.limit });
       }
-    const newsArray = [
-        {
-            newsName: 'Новость 1',
-            newsImg: 'img',
-            newsDate: '23 июня 2024',
-            newsContent: 'СодержаниеСодержаниеСодержание СодержаниеСодержаниеСодержание СодержаниеСодержание СодержаниеСодержаниеСодержание СодержаниеСодержаниеСодержание СодержаниеСодержаниеСодержание'         
-        },
-        {
-            newsName: 'Новость 1',
-            newsImg: 'img',
-            newsDate: '23 июня 2024',
-            newsContent: 'СодержаниеСодержаниеСодержание СодержаниеСодержаниеСодержание СодержаниеСодержание СодержаниеСодержаниеСодержание СодержаниеСодержаниеСодержание СодержаниеСодержаниеСодержание'         
-        },
-        {
-            newsName: 'Новость 1',
-            newsImg: 'img',
-            newsDate: '23 июня 2024',
-            newsContent: 'СодержаниеСодержаниеСодержание СодержаниеСодержаниеСодержание СодержаниеСодержание СодержаниеСодержаниеСодержание СодержаниеСодержаниеСодержание СодержаниеСодержаниеСодержание'         
-        }
-    ]
     return(
         <div className="main__news container">
             <div className="news__title">
                 <p>Новости</p>
             </div>
-
             <ul className="news__list">
                 {state.newsList.map((el,i) => (
                     <li className="item">
@@ -62,9 +44,30 @@ export const News = () => {
                         </div>
                         <div className="item__main flex justif-ss-betw">
                             <div className="item__img">
+                                <Swiper
+                                    spaceBetween={0}
+                                    slidesPerView={1}
+                                    className="item__swiper"
+                                    breakpoints={{
+                                    750: {
+                                        slidesPerView: 2,
 
+                                    },
+                                    700: {
+                                        slidesPerView: 1,
+                                    },
+                                    100: {
+                                        slidesPerView: 1,
+                                    },
+                                    }}
+                                >
+                                    {el.files.map((file, index) => (
+                                        <SwiperSlide style={{ backgroundColor: "black" }}>
+\                                           <img src={"http://localhost:1337/images/" + file} alt="Don't show" ></img>
+                                        </SwiperSlide>
+                                    ))}
+                                </Swiper>
                             </div>
-                            {el.files}
                             <div className="item__content">
                                 {el.news.description}
                             </div>

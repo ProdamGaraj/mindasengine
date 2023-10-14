@@ -3,40 +3,19 @@ import "swiper/css";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useState,useEffect } from "react";
 import axios from "axios";
-import baseURL from "../../axios";
+
+const baseUrl = "http://localhost:1337"
 
 export const Projects = () => {
-  const projectArray = [
-    {
-      projectName: "BilimBank",
-      projectDesc:
-        "ОписаниеОписаниеОписание ОписаниеОписаниеОписание ОписаниеОписаниеОписание",
-      projectKind: "Разработка сайта",
-      projectImg: "",
-    },
-    {
-      projectName: "BilimBank",
-      projectDesc:
-        "ОписаниеОписаниеОписание ОписаниеОписаниеОписание ОписаниеОписаниеОписание",
-      projectKind: "Чат-бот",
-      projectImg: "",
-    },
-    {
-      projectName: "BilimBank",
-      projectDesc:
-        "ОписаниеОписаниеОписание ОписаниеОписаниеОписание ОписаниеОписаниеОписание",
-      projectKind: "Лэндинг",
-      projectImg: "",
-    },
-  ];
   const [state, setState] = useState({
     projectList: [],
+    projectImgList: [],
     limit:3
   });
 
 useEffect(() => {
     axios
-      .get(`${baseURL}/user/project`)
+      .get(baseUrl + `/projects`)
       .then((res) => {
         setState({ ...state, projectList: res.data });
       })
@@ -78,18 +57,11 @@ useEffect(() => {
                   },
                 }}
               >
-                <SwiperSlide style={{ backgroundColor: "black" }}>
-                  Slide 1
-                </SwiperSlide>
-                <SwiperSlide style={{ backgroundColor: "black" }}>
-                  Slide 2
-                </SwiperSlide>
-                <SwiperSlide style={{ backgroundColor: "black" }}>
-                  Slide 3
-                </SwiperSlide>
-                <SwiperSlide style={{ backgroundColor: "black" }}>
-                  Slide 4
-                </SwiperSlide>
+                {el.files.map((file, index) => (
+                    <SwiperSlide style={{ backgroundColor: "black" }}>
+                      <img src={"http://localhost:1337/images/" + file} alt="Don't show" style={{ maxWidth: '100%' }}></img>
+                    </SwiperSlide>
+                ))}
               </Swiper>
             </div>
 
