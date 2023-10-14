@@ -4,7 +4,9 @@ const instance = axios.create({
     baseURL: 'http://localhost:1337'
 });
 
-export const baseURL = 'https://ваш_адрес_веб-сервиса/';
+
+const baseURL = 'https://api.example.com';
+
 
 instance.interceptors.request.use((config) => {
     config.headers.Authorization = window.localStorage.getItem('token');
@@ -12,4 +14,4 @@ instance.interceptors.request.use((config) => {
     return config;
 });
 
-export default instance;
+export default baseURL;
