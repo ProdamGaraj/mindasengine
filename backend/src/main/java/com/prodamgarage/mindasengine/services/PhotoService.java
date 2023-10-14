@@ -1,6 +1,5 @@
 package com.prodamgarage.mindasengine.services;
 
-import com.prodamgarage.mindasengine.repository.PhotoRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;

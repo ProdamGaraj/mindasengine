@@ -1,9 +1,9 @@
 package com.prodamgarage.mindasengine.controllers.moderator;
 
-import com.prodamgarage.mindasengine.dto.NewsDTO;
-import com.prodamgarage.mindasengine.dto.ProjectDTO;
-import com.prodamgarage.mindasengine.dto.UploadNews;
-import com.prodamgarage.mindasengine.dto.UploadProject;
+import com.prodamgarage.mindasengine.dto.NewsResponse;
+import com.prodamgarage.mindasengine.dto.ProjectResponse;
+import com.prodamgarage.mindasengine.dto.NewsRequest;
+import com.prodamgarage.mindasengine.dto.ProjectRequest;
 import com.prodamgarage.mindasengine.models.News;
 import com.prodamgarage.mindasengine.models.Project;
 import com.prodamgarage.mindasengine.services.NewsService;
@@ -29,16 +29,16 @@ public class ModeratorController {
 
 
     @GetMapping("/get/projects")
-    public ResponseEntity<List<ProjectDTO>> allProject() {
-        List<ProjectDTO> projects = projectService.getAllProjects();
+    public ResponseEntity<List<ProjectResponse>> allProject() {
+        List<ProjectResponse> projects = projectService.getAllProjects();
         if (projects == null) {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(projects);
     }
     @PostMapping("/upload/project")
-    public ResponseEntity<?> saveProject(UploadProject uploadProject) throws IOException {
-        projectService.saveProject(new Project(uploadProject.getName(), uploadProject.getDescription()), uploadProject.getMultipartFiles());
+    public ResponseEntity<?> saveProject(ProjectRequest projectRequest) throws IOException {
+        projectService.saveProject(new Project(projectRequest.getName(), projectRequest.getDescription()), projectRequest.getMultipartFiles());
         return ResponseEntity.ok("Upload project");
     }
     @DeleteMapping("/delete/project")
@@ -47,8 +47,8 @@ public class ModeratorController {
         return ResponseEntity.ok("Delete project");
     }
     @PutMapping("/update/project")
-    public ResponseEntity<?> updateProject(UploadProject uploadProject) {
-        projectService.updateProject(new Project(uploadProject.getName(), uploadProject.getDescription()), uploadProject.getMultipartFiles(), uploadProject.getId());
+    public ResponseEntity<?> updateProject(ProjectRequest projectRequest) {
+        projectService.updateProject(new Project(projectRequest.getName(), projectRequest.getDescription()), projectRequest.getMultipartFiles(), projectRequest.getId());
         return ResponseEntity.ok("Update project");
     }
 
@@ -56,16 +56,16 @@ public class ModeratorController {
 
 
     @GetMapping("/get/news")
-    public ResponseEntity<List<NewsDTO>> allNews() {
-        List<NewsDTO> news = newsService.getAllNews();
+    public ResponseEntity<List<NewsResponse>> allNews() {
+        List<NewsResponse> news = newsService.getAllNews();
         if (news == null) {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(news);
     }
     @PostMapping("/upload/news")
-    public ResponseEntity<?> saveNews(UploadNews uploadNews) throws IOException {
-        newsService.saveNews(new News(uploadNews.getName(), uploadNews.getDescription(), uploadNews.getPublication()), uploadNews.getMultipartFiles());
+    public ResponseEntity<?> saveNews(NewsRequest newsRequest) throws IOException {
+        newsService.saveNews(new News(newsRequest.getName(), newsRequest.getDescription(), newsRequest.getPublication()), newsRequest.getMultipartFiles());
         return ResponseEntity.ok("Upload news");
     }
     @DeleteMapping("/delete/news")
@@ -74,8 +74,8 @@ public class ModeratorController {
         return ResponseEntity.ok("Delete news");
     }
     @PutMapping("/update/news")
-    public ResponseEntity<?> updateNews(UploadNews uploadNews) {
-        newsService.updateNews(new News(uploadNews.getName(), uploadNews.getDescription(), uploadNews.getPublication()), uploadNews.getMultipartFiles(), uploadNews.getId());
+    public ResponseEntity<?> updateNews(NewsRequest newsRequest) {
+        newsService.updateNews(new News(newsRequest.getName(), newsRequest.getDescription(), newsRequest.getPublication()), newsRequest.getMultipartFiles(), newsRequest.getId());
         return ResponseEntity.ok("Update news");
     }
 

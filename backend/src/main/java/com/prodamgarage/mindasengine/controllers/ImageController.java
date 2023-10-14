@@ -1,52 +1,33 @@
 package com.prodamgarage.mindasengine.controllers;
 
-import com.prodamgarage.mindasengine.dto.ResourceWrapper;
-import com.prodamgarage.mindasengine.models.News;
-import com.prodamgarage.mindasengine.models.Photo;
-import com.prodamgarage.mindasengine.models.Project;
-import com.prodamgarage.mindasengine.repository.PhotoRepository;
 import com.prodamgarage.mindasengine.services.PhotoService;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
-import org.springframework.core.io.ResourceLoader;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/images")
 public class ImageController {
-    @Value("${upload.path}")
-    private String uploadPath;
-    private final ResourceLoader resourceLoader;
-    private final PhotoRepository photoRepository;
     private final PhotoService photoService;
-
-    public ImageController(ResourceLoader resourceLoader, PhotoRepository photoRepository, PhotoService photoService) {
-        this.resourceLoader = resourceLoader;
-        this.photoRepository = photoRepository;
+    public ImageController(PhotoService photoService) {
         this.photoService = photoService;
     }
-
     @Async
     @GetMapping(value = "/{imageName}", produces = MediaType.IMAGE_JPEG_VALUE)
     public ResponseEntity<byte[]> serveFile(@PathVariable String imageName) throws IOException {
         Resource resource = photoService.loadFileAsResource(imageName);
         return ResponseEntity.ok().body(resource.getContentAsByteArray());
     }
+}
 
-    @GetMapping("/news")
+
+
+/*    @GetMapping("/news")
     public ResponseEntity<List<Resource>> getImageFromNews(@RequestBody News news) throws MalformedURLException {
         List<Resource> resources = new ArrayList<>();
         List<Photo> photos = photoRepository.findByNews(news);
@@ -66,5 +47,4 @@ public class ImageController {
             resources.add(new ResourceWrapper(photo.getFilename(), resource.getURL().toString()));
         }
         return ResponseEntity.ok().body(resources);
-    }
-}
+    }*/

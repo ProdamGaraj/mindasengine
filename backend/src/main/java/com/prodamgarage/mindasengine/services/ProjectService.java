@@ -1,6 +1,6 @@
 package com.prodamgarage.mindasengine.services;
 
-import com.prodamgarage.mindasengine.dto.ProjectDTO;
+import com.prodamgarage.mindasengine.dto.ProjectResponse;
 import com.prodamgarage.mindasengine.models.Photo;
 import com.prodamgarage.mindasengine.models.Project;
 import com.prodamgarage.mindasengine.repository.PhotoRepository;
@@ -62,12 +62,12 @@ public class ProjectService {
         projectRepository.deleteById(id);
     }
 
-    public List<ProjectDTO> getAllProjects() {
-        List<ProjectDTO> projectsWithFiles = new ArrayList<>();
+    public List<ProjectResponse> getAllProjects() {
+        List<ProjectResponse> projectsWithFiles = new ArrayList<>();
         Iterable<Project> projects = projectRepository.findAll();
         for (Project project : projects) {
             List<Photo> photos = photoRepository.findByProject(project);
-            projectsWithFiles.add(new ProjectDTO(project, photos.stream().map(Photo::getFilename).toList()));
+            projectsWithFiles.add(new ProjectResponse(project, photos.stream().map(Photo::getFilename).toList()));
         }
         return projectsWithFiles;
     }

@@ -10,7 +10,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @RequiredArgsConstructor
-public class UploadNews {
+public class NewsRequest {
     private Long id;
     @NonNull
     private String name;

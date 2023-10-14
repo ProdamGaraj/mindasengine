@@ -9,7 +9,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @RequiredArgsConstructor
-public class ProjectDTO {
+public class ProjectResponse {
     @NonNull
     private Project project;
     @NonNull

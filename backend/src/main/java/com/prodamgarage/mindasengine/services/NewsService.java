@@ -1,6 +1,6 @@
 package com.prodamgarage.mindasengine.services;
 
-import com.prodamgarage.mindasengine.dto.NewsDTO;
+import com.prodamgarage.mindasengine.dto.NewsResponse;
 import com.prodamgarage.mindasengine.models.Photo;
 import com.prodamgarage.mindasengine.models.News;
 import com.prodamgarage.mindasengine.repository.NewsRepository;
@@ -60,13 +60,13 @@ public class NewsService {
         newsRepository.deleteById(id);
     }
 
-    public List<NewsDTO> getAllNews() {
+    public List<NewsResponse> getAllNews() {
         LocalDate currentDate  = LocalDate.now();
-        List<NewsDTO> newssWithFiles = new ArrayList<>();
+        List<NewsResponse> newssWithFiles = new ArrayList<>();
         Iterable<News> newss = newsRepository.findByPublicationLessThanEqual(currentDate);
         for (News news : newss) {
             List<Photo> photos = photoRepository.findByNews(news);
-            newssWithFiles.add(new NewsDTO(news, photos.stream().map(Photo::getFilename).toList()));
+            newssWithFiles.add(new NewsResponse(news, photos.stream().map(Photo::getFilename).toList()));
         }
         return newssWithFiles;
     }

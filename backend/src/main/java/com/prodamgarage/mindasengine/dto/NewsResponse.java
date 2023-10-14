@@ -9,7 +9,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @RequiredArgsConstructor
-public class NewsDTO {
+public class NewsResponse {
     @NonNull
     private News news;
     @NonNull

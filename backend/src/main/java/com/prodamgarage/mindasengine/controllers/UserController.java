@@ -1,7 +1,7 @@
 package com.prodamgarage.mindasengine.controllers;
 
-import com.prodamgarage.mindasengine.dto.NewsDTO;
-import com.prodamgarage.mindasengine.dto.ProjectDTO;
+import com.prodamgarage.mindasengine.dto.NewsResponse;
+import com.prodamgarage.mindasengine.dto.ProjectResponse;
 import com.prodamgarage.mindasengine.services.NewsService;
 import com.prodamgarage.mindasengine.services.ProjectService;
 import org.springframework.http.ResponseEntity;
@@ -23,16 +23,16 @@ public class UserController {
         this.newsService = newsService;
     }
     @GetMapping("projects")
-    public ResponseEntity<List<ProjectDTO>> allProject() {
-        List<ProjectDTO> projects = projectService.getAllProjects();
+    public ResponseEntity<List<ProjectResponse>> allProject() {
+        List<ProjectResponse> projects = projectService.getAllProjects();
         if (projects == null) {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(projects);
     }
     @GetMapping("/news")
-    public ResponseEntity<List<NewsDTO>> allNews() {
-        List<NewsDTO> news = newsService.getAllNews();
+    public ResponseEntity<List<NewsResponse>> allNews() {
+        List<NewsResponse> news = newsService.getAllNews();
         if (news == null) {
             return ResponseEntity.notFound().build();
         }
