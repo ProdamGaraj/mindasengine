@@ -6,5 +6,5 @@ RUN mvn -f /home/app/pom.xml clean package
 
 FROM eclipse-temurin
 COPY --from=build /home/app/target/mindasengine-alfa.jar /usr/local/lib/mindasengine.jar
-EXPOSE 80
+EXPOSE 1337
 ENTRYPOINT ["java","-jar","/usr/local/lib/mindasengine.jar"]
