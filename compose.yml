@@ -22,7 +22,7 @@ services:
       - database
     env_file: environment.env
     volumes:
-      - ./backend/src/main/resources/images:/home/mindasengine/images
+      - /home/mindasengine/res:/backend/src/main/resources/images
     ports:
       - '1337:1337'
     networks:
@@ -38,6 +38,6 @@ services:
       - /home/mindasengine/pgdata:/var/lib/postgresql/data
     restart: unless-stopped
     ports:
-      - '5432:5432'
+      - '5555:5432'
     networks:
       - 'default'
