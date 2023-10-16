@@ -123,7 +123,7 @@ export const AdminMain = (props) => {
               <div className="item__title flex justif-ss-betw">
                 {el.news.name}
                 <button className="item__edit">
-                  <Link to= "edit" state={{el}}>
+                  <Link to= "edit" state={{el,state}}>
                     <img src={edit} alt="" />
                   </Link>
                 </button>

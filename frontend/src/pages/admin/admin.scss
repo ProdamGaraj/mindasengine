@@ -67,7 +67,9 @@
 
   .news__radio{
     gap: 40px;
-
+    input{
+      display: none;
+    }
     label.active{
         cursor: pointer;
         transition: all 0.1s;
@@ -95,8 +97,6 @@
 
 .edit__photo{
   flex-wrap: nowrap;
-  overflow:scroll;
-  overflow-y:hidden;
   padding-bottom: 24px;
   
   img{

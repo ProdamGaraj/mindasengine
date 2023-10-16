@@ -4,11 +4,16 @@ import baseURL from "../../axios.js";
 import { useState } from "react";
 import inpFile from "../../img/Vector.svg";
 
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+
 export const FormNews2 = () => {
   const [state, setState] = useState({
     name: "",
     description: "",
     files: null,
+    selected: "news",
+    date: null
   });
 
   const [cookies, setCookie, removeCookie] = useCookies();
@@ -17,9 +22,13 @@ export const FormNews2 = () => {
     Authorization: `${cookies.tokenType} ${cookies.accessToken}`,
   };
 
+  const handleChangeDate = (date) => {
+    setState({...state, date: date });
+  }
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setState({ ...state, name: value });
+    setState({ ...state, [name]: value });
   };
   const handleInputChange2 = (e) => {
     const { description, value } = e.target;
@@ -29,7 +38,6 @@ export const FormNews2 = () => {
   const handleFileChange = (e) => {
     setState({ ...state, files: e.target.files });
   };
-
   const handleUpload = () => {
     const { name, description, files } = state;
     const formData = new FormData();
@@ -55,16 +63,39 @@ export const FormNews2 = () => {
   };
   return (
     <div className="form__news">
+      <div className="news__radio flex align-cent">
+        <label className={state.selected == 'news' ? 'active' : ''}>
+          <span>Новости</span>
+          <input
+            type="radio"
+            name="selected"
+            id=""
+            value="news"
+            onChange={handleInputChange}
+          />
+        </label>
+
+        <label className={state.selected == 'project' ? 'active' : ''}>
+          <span>Проекты</span>
+          <input
+            type="radio"
+            name="selected"
+            id=""
+            value="project"
+            onChange={handleInputChange}
+          />
+        </label>
+      </div>
       <input
         type="text"
         name="namee"
-        placeholder="Project Name"
+        placeholder="Заголовок"
         onChange={handleInputChange}
       />
       <textarea
         type="text"
         name="description"
-        placeholder="Project Description"
+        placeholder="Текст"
         onChange={handleInputChange2}
       />
       <label htmlFor="" className="input__file">
@@ -78,6 +109,7 @@ export const FormNews2 = () => {
           onChange={handleFileChange}
         />
       </label>
+      <DatePicker selected={state.date} onChange={handleChangeDate} />
       <button onClick={handleUpload} className="form__btn">
         Опубликовать
       </button>

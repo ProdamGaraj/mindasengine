@@ -13,7 +13,7 @@ export const FormEdit = (props) => {
     publication: props.state.el.news.publication,
     files: props.state.el.files,
   });
-
+  console.log(props.state.state.show);
   const [cookies, setCookie, removeCookie] = useCookies();
 
   const header = {
@@ -44,7 +44,7 @@ export const FormEdit = (props) => {
     }
 
     axios
-      .post(baseURL + "/moderator/update/project", formData, header)
+      .post(baseURL + "/moderator/update/" + props.state.state.show, formData, header)
       .then((response) => {
         console.log(response.data);
         console.log(formData);
@@ -72,7 +72,7 @@ export const FormEdit = (props) => {
         value={state.description}
       />
 
-      <div className="edit__photo flex row">
+      <div className="edit__photo flex row" style={state.files.length > 2 ? {overflow: "scroll",overflowY: 'hidden'}: {}}>
         {props.state.el.files.map((file, index) => (
           <div className="col-6 img__wrapper">
             <img
