@@ -1,0 +1,78 @@
+.authForm {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  &__body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 25px 32px;
+
+    max-width: 536px;
+    width: 100%;
+
+    background-color: rgba(243, 243, 243, 1);
+
+    button {
+      margin: 0 auto 0;
+
+      max-width: 280px;
+      width: 100%;
+      background-color: rgba(10, 164, 174, 1);
+      color: #fff;
+
+      padding-top: 6.5px;
+      padding-bottom: 6.5px;
+
+      font-family: "Exo", sans-serif;
+      font-size: 20px;
+      font-weight: 600;
+      line-height: 27px;
+    }
+
+    .authForm__title {
+      margin-bottom: 32px;
+      font-family: "Exo", sans-serif;
+      font-size: 24px;
+      font-weight: 500;
+      line-height: 32px;
+    }
+    .authForm__subtitle {
+      margin-top: 28px;
+
+      font-family: "Exo", sans-serif;
+      font-size: 16px;
+      font-style: italic;
+      font-weight: 500;
+      line-height: 21px;
+
+      color: rgba(159, 159, 159, 1);
+    }
+  }
+  .authForm__form {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+
+    width: 100%;
+
+    input {
+      max-width: 280px;
+      width: 100%;
+      height: 32px;
+
+      margin: 0 auto;
+      border: 2px solid rgba(217, 217, 217, 1);
+
+      padding: 5.5px 10px;
+
+      cursor: pointer;
+
+      &::placeholder{
+        color: rgba(159, 159, 159, 1);
+        font-style: oblique;
+      }
+    }
+  }
+}

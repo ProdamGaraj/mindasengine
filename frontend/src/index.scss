@@ -1,0 +1,60 @@
+@import url("./style/bootstrap.min.css");
+@import url("./style/null.css");
+
+//Fonts: EXO INTER
+@import url('https://fonts.googleapis.com/css2?family=Exo:wght@400;600&family=Inter&family=Roboto:wght@700&display=swap');
+
+body {
+  margin: 0;
+  background-color: rgba(255, 255, 255, 1);
+  padding-top: 8px;
+  padding-bottom: 8px;
+  font-family: 'Exo', sans-serif;
+
+  &.lock{
+    overflow: hidden;
+  }
+}
+
+.align-cent{
+  align-items: center;
+}
+
+.overflow{
+  //height: 100%;
+  overflow-x: hidden;
+}
+
+.flex {
+  display: flex;
+}
+.justif-ss-betw{
+  justify-content: space-between;
+}
+
+.justif-ss-end{
+  justify-content: end;
+}
+
+.justif-ss-cent{
+  justify-content: center;
+}
+
+.tex-cen {
+  text-align: center;
+}
+
+.centr {
+  margin: 0 auto;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.container-admin{
+  max-width: 876px;
+}
+
+

@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  frontend:
+    container_name: frontend
+    image: frontend
+    build: 
+      context: /frontend
+    depends_on:
+      - backend
+    ports:
+      - '80:3000'
+    networks:
+      - 'default'
+
+  backend:
+    container_name: mindasengine
+    image: 'mindasengine'
+    build:
+      context: /backend
+    depends_on:
+      - database
+    env_file: environment.env
+    volumes:
+      - ./backend/src/main/resources/images:/home/mindasengine/images
+    ports:
+      - '1337:1337'
+    networks:
+      - 'default'
+
+  database:
+    container_name: postgres
+    image: postgres:14-alpine3.18
+    build:
+      context: .
+    env_file: environment.env
+    volumes:
+      - /home/mindasengine/pgdata:/var/lib/postgresql/data
+    restart: unless-stopped
+    ports:
+      - '5432:5432'
+    networks:
+      - 'default'

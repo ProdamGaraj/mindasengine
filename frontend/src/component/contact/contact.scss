@@ -1,0 +1,26 @@
+.main__contact {
+  margin-top: 93px;
+  @media (max-width: 705px) {
+    flex-direction: column-reverse;
+    gap: 30px;
+  }
+  .contact__list {
+    .list__item {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    .list__title {
+      margin-bottom: 33px;
+    }
+  }
+  .contact__img{
+    border: 2px solid black;
+    img{
+        max-width: 100%;
+        max-height: 100%;
+        height: 100%;
+        width: 100%;
+    }
+  }
+}

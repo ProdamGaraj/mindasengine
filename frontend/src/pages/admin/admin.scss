@@ -1,0 +1,105 @@
+.adminPage {
+  margin-top: 60px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 60px auto 0;
+  .admin__public {
+    width: 100%;
+    .public__title {
+      margin-bottom: 28px;
+      p {
+        font-family: "Exo" sans-serif;
+        font-size: 24px;
+        font-weight: 500;
+        line-height: 32px;
+      }
+      button {
+        font-family: "Exo" sans-serif;
+        font-size: 20px;
+        font-weight: 400;
+        line-height: 27px;
+        color: rgba(116, 116, 116, 1);
+      }
+    }
+  }
+}
+
+.form__news {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  gap: 24px;
+  input {
+    border: 2px solid rgba(217, 217, 217, 1);
+    padding: 5.5px 5px 10px 5.5px;
+
+    &:nth-child(1) {
+      max-width: 280px;
+      width: 100%;
+    }
+  }
+
+  textarea {
+    width: 100%;
+    height: 294px;
+    border: 2px solid rgba(217, 217, 217, 1);
+    padding: 5.5px 5px 10px 5.5px;
+
+    resize: none;
+  }
+
+  .input__file {
+    cursor: pointer;
+    margin-top: 24px;
+    span {
+      max-width: 280px;
+      gap: 20px;
+      padding: 10px 20px;
+      border: 1px solid rgba(217, 217, 217, 1);
+    }
+    input {
+     // display: none;
+    }
+  }
+
+  .news__radio{
+    gap: 40px;
+    input{
+      display: none;
+    }
+    label.active{
+        cursor: pointer;
+        transition: all 0.1s;
+        color: rgba(10, 164, 174, 1);
+        text-decoration: underline rgba(10, 164, 174, 1);
+    }
+  }
+
+  .form__btn {
+    max-width: 247px;
+    width: 100%;
+    height: 60px;
+
+    margin-left: auto;
+
+    background: rgba(10, 164, 174, 1);
+    font-family: "Exo" sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 27px;
+
+    color: rgba(255, 255, 255, 1);
+  }
+}
+
+.edit__photo{
+  flex-wrap: nowrap;
+  padding-bottom: 24px;
+  
+  img{
+    border: 1px solid black;
+  }
+}
