@@ -19,10 +19,9 @@ export const News = () => {
   useEffect(() => {
     async function fetchData() {
       try {
-        setState({ ...state, loading: false });
+        setState({ ...state, loading: true });
         const response = await axios.get(baseURL + "/news");
         setState({ ...state, loading: false });
-        setState({ ...state, loading: true });
         setState({ ...state, newsList: response.data });
       } catch (error) {
         setState({ ...state, loading: false });

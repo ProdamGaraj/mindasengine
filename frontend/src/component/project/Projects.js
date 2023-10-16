@@ -22,6 +22,7 @@ export const Projects = () => {
       try {
         setState({ ...state, loading: true });
         const response = await axios.get(baseURL + "/projects");
+        setState({ ...state, loading: false });
         setState({ ...state, projectList: response.data });
       } catch (error) {
         setState({ ...state, loading: false });
