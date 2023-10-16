@@ -72,7 +72,7 @@ public class ProjectService {
         return projectsWithFiles;
     }
 
-    public void updateProject(Project project, List<MultipartFile> files, Long id) {
+    public void updateProject(Project project, List<MultipartFile> files, Long id) throws IOException {
         Project projectFromDb = projectRepository.findById(id).orElseThrow();
         projectFromDb.setName(project.getName());
         projectFromDb.setDescription(project.getDescription());
@@ -83,9 +83,19 @@ public class ProjectService {
                     File fileToDelete = new File(uploadPath + "/" + photo.getFilename());
                     if (fileToDelete.exists()) {
                         fileToDelete.delete();
+                        photoRepository.deleteById(photo.getId());
                     }
                 }
             }
+            projectRepository.save(projectFromDb);
+            for (MultipartFile file : files) {
+                String uuidFile = UUID.randomUUID().toString();
+                String resultFilename = uuidFile + "." + file.getOriginalFilename();
+                file.transferTo(new File(uploadPath + "/" + resultFilename));
+                Photo photo = new Photo(resultFilename, projectFromDb, null);
+                photoRepository.save(photo);
+            }
+            return;
         }
         projectRepository.save(projectFromDb);
     }

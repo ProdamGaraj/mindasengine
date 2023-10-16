@@ -47,7 +47,7 @@ public class ModeratorController {
         return ResponseEntity.ok("Delete project");
     }
     @PutMapping("/update/project")
-    public ResponseEntity<?> updateProject(ProjectRequest projectRequest) {
+    public ResponseEntity<?> updateProject(ProjectRequest projectRequest) throws IOException {
         projectService.updateProject(new Project(projectRequest.getName(), projectRequest.getDescription()), projectRequest.getMultipartFiles(), projectRequest.getId());
         return ResponseEntity.ok("Update project");
     }
@@ -74,9 +74,8 @@ public class ModeratorController {
         return ResponseEntity.ok("Delete news");
     }
     @PutMapping("/update/news")
-    public ResponseEntity<?> updateNews(NewsRequest newsRequest) {
+    public ResponseEntity<?> updateNews(NewsRequest newsRequest) throws IOException {
         newsService.updateNews(new News(newsRequest.getName(), newsRequest.getDescription(), newsRequest.getPublication()), newsRequest.getMultipartFiles(), newsRequest.getId());
         return ResponseEntity.ok("Update news");
     }
-
 }

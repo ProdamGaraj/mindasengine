@@ -8,7 +8,6 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
-import java.util.concurrent.CompletableFuture;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -20,32 +19,8 @@ public class ImageController {
     }
     @Async
     @GetMapping(value = "/{imageName}", produces = MediaType.IMAGE_JPEG_VALUE)
-    public CompletableFuture<ResponseEntity<byte[]>> serveFile(@PathVariable String imageName) throws IOException {
+    public ResponseEntity<byte[]> serveFile(@PathVariable String imageName) throws IOException {
         Resource resource = photoService.loadFileAsResource(imageName);
-        return CompletableFuture.completedFuture(ResponseEntity.ok().body(resource.getContentAsByteArray()));
+        return ResponseEntity.ok().body(resource.getContentAsByteArray());
     }
 }
-
-
-
-/*    @GetMapping("/news")
-    public ResponseEntity<List<Resource>> getImageFromNews(@RequestBody News news) throws MalformedURLException {
-        List<Resource> resources = new ArrayList<>();
-        List<Photo> photos = photoRepository.findByNews(news);
-        for (Photo photo : photos) {
-            Resource resource = photoService.loadFileAsResource(photo.getFilename());
-            resources.add(resource);
-        }
-        return ResponseEntity.ok().body(resources);
-    }
-
-    @GetMapping("/project")
-    public ResponseEntity<List<ResourceWrapper>> getImageFromProject(@RequestBody Project project) throws IOException {
-        List<ResourceWrapper> resources = new ArrayList<>();
-        List<Photo> photos = photoRepository.findByProject(project);
-        for (Photo photo : photos) {
-            Resource resource = photoService.loadFileAsResource(photo.getFilename());
-            resources.add(new ResourceWrapper(photo.getFilename(), resource.getURL().toString()));
-        }
-        return ResponseEntity.ok().body(resources);
-    }*/

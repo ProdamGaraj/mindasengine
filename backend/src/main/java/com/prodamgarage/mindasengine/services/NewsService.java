@@ -61,7 +61,7 @@ public class NewsService {
     }
 
     public List<NewsResponse> getAllNews() {
-        LocalDate currentDate  = LocalDate.now();
+        LocalDate currentDate = LocalDate.now();
         List<NewsResponse> newssWithFiles = new ArrayList<>();
         Iterable<News> newss = newsRepository.findByPublicationLessThanEqual(currentDate);
         for (News news : newss) {
@@ -71,21 +71,32 @@ public class NewsService {
         return newssWithFiles;
     }
 
-    public void updateNews(News news, List<MultipartFile> files, Long id) {
+    public void updateNews(News news, List<MultipartFile> files, Long id) throws IOException {
         News newsFromDb = newsRepository.findById(id).orElseThrow();
         newsFromDb.setName(news.getName());
         newsFromDb.setDescription(news.getDescription());
         newsFromDb.setPublication(news.getPublication());
+
         if (files != null) {
             List<Photo> photos = photoRepository.findAll();
             for (Photo photo : photos) {
-                if (news == photo.getNews()) {
+                if (newsFromDb == photo.getNews()) {
                     File fileToDelete = new File(uploadPath + "/" + photo.getFilename());
                     if (fileToDelete.exists()) {
                         fileToDelete.delete();
+                        photoRepository.deleteById(photo.getId());
                     }
                 }
             }
+            newsRepository.save(newsFromDb);
+            for (MultipartFile file : files) {
+                String uuidFile = UUID.randomUUID().toString();
+                String resultFilename = uuidFile + "." + file.getOriginalFilename();
+                file.transferTo(new File(uploadPath + "/" + resultFilename));
+                Photo photo = new Photo(resultFilename, null, newsFromDb);
+                photoRepository.save(photo);
+            }
+            return;
         }
         newsRepository.save(newsFromDb);
     }
