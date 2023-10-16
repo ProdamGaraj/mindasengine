@@ -7,8 +7,7 @@ import lombok.*;
 @Table( name = "users",
         uniqueConstraints = {
                 @UniqueConstraint(columnNames = "username")})
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @RequiredArgsConstructor
 public class User {

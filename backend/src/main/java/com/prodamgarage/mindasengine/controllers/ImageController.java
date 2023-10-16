@@ -8,6 +8,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.concurrent.CompletableFuture;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -19,9 +20,9 @@ public class ImageController {
     }
     @Async
     @GetMapping(value = "/{imageName}", produces = MediaType.IMAGE_JPEG_VALUE)
-    public ResponseEntity<byte[]> serveFile(@PathVariable String imageName) throws IOException {
+    public CompletableFuture<ResponseEntity<byte[]>> serveFile(@PathVariable String imageName) throws IOException {
         Resource resource = photoService.loadFileAsResource(imageName);
-        return ResponseEntity.ok().body(resource.getContentAsByteArray());
+        return CompletableFuture.completedFuture(ResponseEntity.ok().body(resource.getContentAsByteArray()));
     }
 }
 

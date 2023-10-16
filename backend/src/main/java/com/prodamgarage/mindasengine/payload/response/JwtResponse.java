@@ -1,11 +1,8 @@
 package com.prodamgarage.mindasengine.payload.response;
 
-import lombok.Getter;
-import lombok.Setter;
-import org.springframework.web.service.annotation.GetExchange;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 public class JwtResponse {
     private String token;
     private String type = "Bearer";

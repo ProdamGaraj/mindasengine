@@ -5,8 +5,7 @@ import lombok.*;
 
 @Entity
 @Table(name = "photo")
-@Getter
-@Setter
+@Data
 public class Photo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
