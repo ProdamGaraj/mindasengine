@@ -52,8 +52,15 @@
   }
   .item {
     margin-top: 31px;
-
-
+    padding: 16px;
+    background: rgba(242, 242, 242, 1);
+    .swiper{
+      background: rgba(242, 242, 242, 1);
+     
+    }
+    .swiper-slide{
+      border: 1px solid black;
+    }
   }
 
   .adminMain__list {

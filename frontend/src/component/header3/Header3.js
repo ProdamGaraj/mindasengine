@@ -5,13 +5,13 @@ import { useLocation } from "react-router";
 
 export const Header3 = () => {
     const { pathname } = useLocation();
-
+    console.log(pathname);
     return(
         <header className="flex justif-ss-betw align-cent container container-admin">
             <DropdownHeader/>
             <Logo/>
             {
-                "/admin" || "/admin/project" === pathname ? <LogOut/> : <div> </div>
+                "/auth" !== pathname ? <LogOut/> : <div> </div>
             }
         </header>
     )

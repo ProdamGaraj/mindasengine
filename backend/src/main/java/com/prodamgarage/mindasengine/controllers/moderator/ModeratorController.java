@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 import java.util.List;
 
-@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
+@CrossOrigin(origins = "http://localhost:1337", maxAge = 3600)
 @RequestMapping("/moderator")
 public class ModeratorController {
     private final ProjectService projectService;

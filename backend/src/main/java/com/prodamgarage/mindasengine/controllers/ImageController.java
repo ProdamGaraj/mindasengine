@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 
+@CrossOrigin(origins = "http://localhost:1337", maxAge = 3600)
 @RestController
-@CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/images")
 public class ImageController {
     private final PhotoService photoService;

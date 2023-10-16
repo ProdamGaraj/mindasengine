@@ -56,8 +56,10 @@
   }
 }
 .item__swiper {
+  background-color: #fff;
   .swiper-wrapper {
     max-width: 780px;
+    //background-color: #fff !important;
     @media (max-width:1199px) {
       max-width: 780px;
       width: auto;
@@ -72,9 +74,21 @@
     max-width: 380px;
     width: 100%;
     height: 168px;
-    background-color: #000;
+    background-color: #fff;
     @media (max-width:980px) {
       max-width: none;
+    }
+  }
+}
+
+.project__slider{
+  .swiper-slide{
+    overflow: hidden;
+    border: 1px solid black;
+
+    img{
+      width: 100%;
+      height: 100%;
     }
   }
 }

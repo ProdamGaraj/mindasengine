@@ -3,15 +3,12 @@ import { useCookies } from "react-cookie";
 import baseURL from "../../axios.js";
 import { useState } from "react";
 import inpFile from "../../img/Vector.svg";
-import "../formEdit/formEdit.scss";
-import trash from "../../img/trash.svg";
 
-export const FormEdit = (props) => {
+export const FormNews2 = () => {
   const [state, setState] = useState({
-    name: props.state.el.news.name,
-    description: props.state.el.news.description,
-    publication: props.state.el.news.publication,
-    files: props.state.el.files,
+    name: "",
+    description: "",
+    files: null,
   });
 
   const [cookies, setCookie, removeCookie] = useCookies();
@@ -22,15 +19,16 @@ export const FormEdit = (props) => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setState({ ...state, [name]: value });
+    setState({ ...state, name: value });
   };
+  const handleInputChange2 = (e) => {
+    const { description, value } = e.target;
+    setState({ ...state, description: value });
+  };
+
   const handleFileChange = (e) => {
     setState({ ...state, files: e.target.files });
   };
-  const handleButtonDelete = (index) => {
-    console.log(index);
-    //state.files.splice()
-  } 
 
   const handleUpload = () => {
     const { name, description, files } = state;
@@ -44,7 +42,7 @@ export const FormEdit = (props) => {
     }
 
     axios
-      .post(baseURL + "/moderator/update/project", formData, header)
+      .post(baseURL + "/moderator/upload/project", formData, header)
       .then((response) => {
         console.log(response.data);
         console.log(formData);
@@ -59,31 +57,16 @@ export const FormEdit = (props) => {
     <div className="form__news">
       <input
         type="text"
-        name="name"
+        name="namee"
         placeholder="Project Name"
         onChange={handleInputChange}
-        value={state.name}
       />
       <textarea
         type="text"
         name="description"
         placeholder="Project Description"
-        onChange={handleInputChange}
-        value={state.description}
+        onChange={handleInputChange2}
       />
-
-      <div className="edit__photo flex row">
-        {props.state.el.files.map((file, index) => (
-          <div className="col-6 img__wrapper">
-            <img
-              src={baseURL + "/images/" + file}
-              alt="Don't show"
-              style={{ maxWidth: "100%" }}
-            />
-            <button onClick={handleButtonDelete(index)}><img src={trash} alt="" /></button>
-          </div>
-        ))}
-      </div>
       <label htmlFor="" className="input__file">
         <span className="flex align-cent">
           <img src={inpFile} /> Добавить медиафайлы
@@ -95,7 +78,9 @@ export const FormEdit = (props) => {
           onChange={handleFileChange}
         />
       </label>
-      <button onClick={handleUpload} className="form__btn">Сохранить</button>
+      <button onClick={handleUpload} className="form__btn">
+        Опубликовать
+      </button>
     </div>
   );
 };

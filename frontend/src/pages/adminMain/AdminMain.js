@@ -10,6 +10,7 @@ import { AdminEdit } from "../admidEdit/AdminEdit";
 import "../adminMain/adminMain.scss";
 import plus from "../../img/plus.svg";
 import search from "../../img/search.svg";
+import baseURL from "../../axios";
 
 export const AdminMain = (props) => {
   const [state, setState] = useState({
@@ -22,15 +23,29 @@ export const AdminMain = (props) => {
   let navigate = useNavigate();
 
   useEffect(() => {
-    axios
-      .get(`https://jsonplaceholder.typicode.com/albums/?_limit=${state.limit}`)
-      .then((res) => {
-        setState({ ...state, projectList: res.data });
-      })
-      .catch((er) => {
-        console.log(er);
-      });
-  }, [state.limit]);
+    if (state.show == "news") {
+      axios
+        .get(baseURL + `/moderator/get/news`)
+        .then((res) => {
+          console.log(res.data);
+          setState({ ...state, publList: res.data });
+        })
+        .catch((er) => {
+          console.log(er);
+        });
+    }
+    if (state.show == "project") {
+      axios
+        .get(baseURL + `/moderator/get/projects`)
+        .then((res) => {
+          console.log(res.data);
+          setState({ ...state, publList: res.data });
+        })
+        .catch((er) => {
+          console.log(er);
+        });
+    }
+  }, [state.show]);
 
   const list = [
     {
@@ -55,6 +70,10 @@ export const AdminMain = (props) => {
       publicPhoto: "",
     },
   ];
+
+  function radioHandler(e) {
+    setState({ ...state, show: e.target.value });
+  }
   return (
     <>
       <Header3 />
@@ -76,13 +95,19 @@ export const AdminMain = (props) => {
           </label>
 
           <div className="filter__radio">
-            <label className={state.show == "news" ? "active" : ""}>
+            <label
+              className={state.show == "news" ? "active" : ""}
+              onChange={radioHandler}
+            >
               <span>Новости</span>
               <input type="radio" name="show" id="" value="news" />
             </label>
-            <label className={state.show == "project" ? "active" : ""}>
+            <label
+              className={state.show == "project" ? "active" : ""}
+              onChange={radioHandler}
+            >
               <span>Проекты</span>
-              <input type="radio" name="show" id="" value="projects" />
+              <input type="radio" name="show" id="" value="project" />
             </label>
           </div>
         </div>
@@ -93,35 +118,32 @@ export const AdminMain = (props) => {
           </button>
         </Link>
         <ul className="adminMain__list">
-          {list.map((el, i) => (
+          {state.publList.map((el, i) => (
             <li className="item">
               <div className="item__title flex justif-ss-betw">
-                {el.publicTitle}
+                {el.news.name}
                 <button className="item__edit">
-                  <Link to="edit">
+                  <Link to= "edit" state={{el}}>
                     <img src={edit} alt="" />
                   </Link>
                 </button>
               </div>
-              <div className="item__subtitle">{el.publicSubtitle}</div>
-              <div className="item__text">{el.publicDisc}</div>
+              <div className="item__subtitle">{el.news.publication}</div>
+              <div className="item__text">Тут должно быть описание</div>
               <Swiper
                 spaceBetween={20}
                 slidesPerView={2}
                 className="item__swiper"
               >
-                <SwiperSlide style={{ backgroundColor: "black" }}>
-                  Slide 1
-                </SwiperSlide>
-                <SwiperSlide style={{ backgroundColor: "black" }}>
-                  Slide 2
-                </SwiperSlide>
-                <SwiperSlide style={{ backgroundColor: "black" }}>
-                  Slide 3
-                </SwiperSlide>
-                <SwiperSlide style={{ backgroundColor: "black" }}>
-                  Slide 4
-                </SwiperSlide>
+                {el.files.map((file, index) => (
+                  <SwiperSlide>
+                    <img
+                      src={baseURL + "/images/" + file}
+                      alt="Don't show"
+                      style={{ maxWidth: "100%" }}
+                    ></img>
+                  </SwiperSlide>
+                ))}
               </Swiper>
             </li>
           ))}

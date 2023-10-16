@@ -2,6 +2,7 @@ import "../admin/admin.scss";
 import { FormNews } from "../../component/form/fromNews";
 import { Routes, Route, Link, useLocation } from "react-router-dom";
 import { Header3 } from "../../component/header3/Header3";
+import { FormNews2 } from "../../component/form/formNews2";
 
 export const Admin = () => {
   return (
@@ -18,7 +19,7 @@ export const Admin = () => {
           </Link>
         </div>
       </div>
-        <FormNews />
+        <FormNews2 />
     </main>
     </>
 

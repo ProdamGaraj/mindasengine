@@ -1,0 +1,16 @@
+.edit__photo{
+    .img__wrapper{
+        position: relative;
+
+        button{
+            position: absolute;
+            cursor: pointer;
+            top: 12px;
+            right: 22px;
+            border: none;
+            img{
+                border: none;
+            }
+        }
+    }
+}

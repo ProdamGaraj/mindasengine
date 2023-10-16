@@ -1,8 +1,10 @@
 import { Header3 } from "../../component/header3/Header3";
 import { FormEdit } from "../../component/formEdit/FormEdit";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import { useEffect } from "react";
 
 export const AdminEdit = () => {
+    let { state } = useLocation();
   return (
     <>
       <Header3 />
@@ -16,7 +18,9 @@ export const AdminEdit = () => {
             </Link>
           </div>
         </div>
-        <FormEdit />
+        <FormEdit 
+          state={state}
+        />
       </main>
     </>
   );

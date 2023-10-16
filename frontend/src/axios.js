@@ -5,7 +5,7 @@ const instance = axios.create({
 });
 
 
-const baseURL = 'https://api.example.com';
+const baseURL = 'https://s14nv2bq-1337.euw.devtunnels.ms';
 
 
 instance.interceptors.request.use((config) => {
