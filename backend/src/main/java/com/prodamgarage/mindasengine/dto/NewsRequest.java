@@ -16,6 +16,7 @@ public class NewsRequest {
     @NonNull
     private String description;
     @NonNull
+    //
     private LocalDate publication;
     @NonNull
     private List<MultipartFile> multipartFiles;

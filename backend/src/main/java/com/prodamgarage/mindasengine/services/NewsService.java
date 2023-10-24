@@ -1,62 +1,32 @@
 package com.prodamgarage.mindasengine.services;
 
 import com.prodamgarage.mindasengine.dto.NewsResponse;
-import com.prodamgarage.mindasengine.models.Photo;
 import com.prodamgarage.mindasengine.models.News;
+import com.prodamgarage.mindasengine.models.Photo;
 import com.prodamgarage.mindasengine.repository.NewsRepository;
-import com.prodamgarage.mindasengine.repository.PhotoRepository;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class NewsService {
-    @Value("${upload.path}")
-    private String uploadPath;
-    private final NewsRepository newsRepository;
-    private final PhotoRepository photoRepository;
-
-    public NewsService(NewsRepository newsRepository, PhotoRepository photoRepository) {
-        this.newsRepository = newsRepository;
-        this.photoRepository = photoRepository;
-    }
+    @Autowired
+    NewsRepository newsRepository;
+    @Autowired
+    PhotoService photoService;
 
     public void saveNews(News news, List<MultipartFile> fileList) throws IOException {
         newsRepository.save(news);
-        if (fileList != null) {
-            File uploadDir = new File(uploadPath);
-            if (!uploadDir.exists()) {
-                uploadDir.mkdirs();
-            }
-
-            for (MultipartFile file : fileList) {
-                String uuidFile = UUID.randomUUID().toString();
-                String resultFilename = uuidFile + "." + file.getOriginalFilename();
-                file.transferTo(new File(uploadPath + "/" + resultFilename));
-                Photo photo = new Photo(resultFilename, null, news);
-                photoRepository.save(photo);
-            }
-        }
+        photoService.savePhotos(news, fileList);
     }
 
     public void deleteNews(Long id) {
-        List<Photo> photos = photoRepository.findAll();
-        for (Photo photo : photos) {
-            Optional<News> news = newsRepository.findById(id);
-            if (news.isPresent()) {
-                if (news.get() == photo.getNews()) {
-                    File fileToDelete = new File(uploadPath + "/" + photo.getFilename());
-                    if (fileToDelete.exists()) {
-                        fileToDelete.delete();
-                    }
-                }
-            }
-        }
+        photoService.deletePhotos(newsRepository.findById(id));
         newsRepository.deleteById(id);
     }
 
@@ -65,7 +35,7 @@ public class NewsService {
         List<NewsResponse> newssWithFiles = new ArrayList<>();
         Iterable<News> newss = newsRepository.findByPublicationLessThanEqual(currentDate);
         for (News news : newss) {
-            List<Photo> photos = photoRepository.findByNews(news);
+            List<Photo> photos = photoService.getPhotosByObject(news);
             newssWithFiles.add(new NewsResponse(news, photos.stream().map(Photo::getFilename).toList()));
         }
         return newssWithFiles;
@@ -78,24 +48,9 @@ public class NewsService {
         newsFromDb.setPublication(news.getPublication());
 
         if (files != null) {
-            List<Photo> photos = photoRepository.findAll();
-            for (Photo photo : photos) {
-                if (newsFromDb == photo.getNews()) {
-                    File fileToDelete = new File(uploadPath + "/" + photo.getFilename());
-                    if (fileToDelete.exists()) {
-                        fileToDelete.delete();
-                        photoRepository.deleteById(photo.getId());
-                    }
-                }
-            }
+            photoService.deletePhotos(newsFromDb);
             newsRepository.save(newsFromDb);
-            for (MultipartFile file : files) {
-                String uuidFile = UUID.randomUUID().toString();
-                String resultFilename = uuidFile + "." + file.getOriginalFilename();
-                file.transferTo(new File(uploadPath + "/" + resultFilename));
-                Photo photo = new Photo(resultFilename, null, newsFromDb);
-                photoRepository.save(photo);
-            }
+            photoService.savePhotos(newsFromDb, files);
             return;
         }
         newsRepository.save(newsFromDb);

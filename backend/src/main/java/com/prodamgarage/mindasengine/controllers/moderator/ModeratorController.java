@@ -8,26 +8,21 @@ import com.prodamgarage.mindasengine.models.News;
 import com.prodamgarage.mindasengine.models.Project;
 import com.prodamgarage.mindasengine.services.NewsService;
 import com.prodamgarage.mindasengine.services.ProjectService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.List;
 
-@CrossOrigin(origins = "*", maxAge = 3600)
+@CrossOrigin
 @RestController
 @RequestMapping("/moderator")
 public class ModeratorController {
-    private final ProjectService projectService;
-    private final NewsService newsService;
-    public ModeratorController(ProjectService projectService, NewsService newsService) {
-        this.projectService = projectService;
-        this.newsService = newsService;
-    }
-
-
-
-
+    @Autowired
+    ProjectService projectService;
+    @Autowired
+    NewsService newsService;
     @GetMapping("/get/projects")
     public ResponseEntity<List<ProjectResponse>> allProject() {
         List<ProjectResponse> projects = projectService.getAllProjects();
