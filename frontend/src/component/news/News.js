@@ -5,9 +5,10 @@ import axios from "axios";
 import baseURL from "../../axios";
 import Collapsible from "react-collapsible";
 
+
 //const baseUrl = "http://localhost:1337"
 
-export const News = () => {
+export const News = (props) => {
   const [state, setState] = useState({
     newsList: [],
     newsImgList: [],
@@ -35,7 +36,7 @@ export const News = () => {
   return (
     <div className="main__news container">
       <div className="news__title">
-        <p>Новости</p>
+        {props.language == "RU" ? <p>Новости</p> : <p>News</p> }
       </div>
       <ul className="news__list">
         {state.loading ? (

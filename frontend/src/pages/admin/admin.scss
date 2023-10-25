@@ -32,6 +32,30 @@
   width: 100%;
 
   gap: 24px;
+  position: relative;
+  .loading__wrapper {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+  .loading {
+    position: absolute;
+
+    top: 50%;
+    left: 50%;
+    right: 50%;
+    transform: translate(50%, 50%);
+
+    width: 40px;
+    height: 40px;
+    animation: animate 2s infinite linear;
+    border-radius: 50%;
+    background-image: url("../../img/loading.png");
+    background-repeat: no-repeat;
+    background-size: 100%;
+  }
   input {
     border: 2px solid rgba(217, 217, 217, 1);
     padding: 5.5px 5px 10px 5.5px;
@@ -54,6 +78,7 @@
   .input__file {
     cursor: pointer;
     margin-top: 24px;
+    max-width: 280px;
     span {
       max-width: 280px;
       gap: 20px;
@@ -61,20 +86,34 @@
       border: 1px solid rgba(217, 217, 217, 1);
     }
     input {
-     // display: none;
+      // display: none;
     }
   }
 
-  .news__radio{
+  .react-datepicker-wrapper {
+    input {
+      text-align: center;
+      font-family: "Exo", sans-serif;
+      font-size: 16px;
+      font-style: italic;
+      font-weight: 500;
+      line-height: 21px;
+
+      &::placeholder {
+        color: rgba(159, 159, 159, 1);
+      }
+    }
+  }
+  .news__radio {
     gap: 40px;
-    input{
+    input {
       display: none;
     }
-    label.active{
-        cursor: pointer;
-        transition: all 0.1s;
-        color: rgba(10, 164, 174, 1);
-        text-decoration: underline rgba(10, 164, 174, 1);
+    label.active {
+      cursor: pointer;
+      transition: all 0.1s;
+      color: rgba(10, 164, 174, 1);
+      text-decoration: underline rgba(10, 164, 174, 1);
     }
   }
 
@@ -95,11 +134,11 @@
   }
 }
 
-.edit__photo{
+.edit__photo {
   flex-wrap: nowrap;
   padding-bottom: 24px;
-  
-  img{
+
+  img {
     border: 1px solid black;
   }
 }

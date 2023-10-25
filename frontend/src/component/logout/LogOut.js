@@ -18,6 +18,8 @@ export const LogOut = () => {
     function handleRemoveCookie (){
       removeCookie('tokenType', {path: '/'})
       removeCookie('accessToken', {path: '/'})
+
+      navigate('/auth')
     }
     return(
         <button className="header__logOut" onClick={handleRemoveCookie}>

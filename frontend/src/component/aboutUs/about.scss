@@ -3,7 +3,7 @@
   padding-top: 108px;
   padding-bottom: 175px;
   background-color: #000;
-
+  overflow: hidden;
   margin-top: calc(50px + 50 * (100vw / 1920));
   @media (max-width:1220px) {
     position: relative;

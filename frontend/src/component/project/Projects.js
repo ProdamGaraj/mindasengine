@@ -6,26 +6,26 @@ import axios from "axios";
 import baseURL from "../../axios";
 import Collapsible from "react-collapsible";
 
-//const baseUrl = "http://localhost:1337"
 
-export const Projects = () => {
+export const Projects = (props) => {
   const [state, setState] = useState({
     projectList: [],
     projectImgList: [],
     limit: 3,
     isOpen: false,
-    loading: false,
+    loadingProject: false,
   });
 
   useEffect(() => {
     async function fetchData() {
       try {
-        setState({ ...state, loading: true });
+        setState({ ...state, loadingProject: true });
         const response = await axios.get(baseURL + "/projects");
-        setState({ ...state, loading: false });
+        setState({ ...state, loadingProject: false });
         setState({ ...state, projectList: response.data });
+        console.log(state.projectList);
       } catch (error) {
-        setState({ ...state, loading: false });
+        setState({ ...state, loadingProject: false });
         console.log(error);
       }
     }
@@ -35,10 +35,11 @@ export const Projects = () => {
 
   return (
     <div className="main__project container">
-      <h1 className="preview__title">Наши проекты</h1>
+      <h1 className="preview__title">
+        {props.language=="RU" ? 'Наши проекты' : " Our projects"}</h1>
       <ul className="project__list">
-        {state.loading ? (
-          <div className="news__loading"></div>
+        {state.loadingProject ? (
+          <div className="news__loading-project"></div>
         ) : (
           state.projectList.map((el, i) => (
             <li className="item flex justif-ss-betw">

@@ -1,16 +1,16 @@
 header{
     position: fixed;
-    z-index: 99999;
+    z-index: 9;
     top: 0;
     left: 0;
     right: 0;
     padding-top: -8px;
+    padding: 10.5px 0;
 
     background-color: #fff;
     @media (max-width:768px) {
         .header__wrapper{
            justify-content: center;
-            padding: 10.5px 0;
            img{
             width: calc(155px + 71 * (100vw / 1920));
             height: calc(42px + 19 * (100vw / 1920));

@@ -13,14 +13,9 @@ import { useState } from "react";
 import { AdminEdit } from "./pages/admidEdit/AdminEdit";
 
 function App() {
-  const bodyLock = () => {
-    document.body.classList.toggle('lock');
-  }
-
   const [state, setState] = useState({
-    admin: true
+    language: "RU",
   });
-
 
   return (
     <div className="overflow">
@@ -30,36 +25,16 @@ function App() {
             path="/"
             element={
               <>
-                <Header2/>
-                  <Main/>
-                <Footer/>
+                <Header2 setState={setState} state={state} />
+                <Main language={state.language} />
+                <Footer />
               </>
             }
           />
-            <Route
-              path="adminmain/add"
-              element={
-                <Admin/>
-              }
-            />
-            <Route
-              path="adminmain/*"
-              element={
-                <AdminMain />
-              }
-            />
-            <Route
-              path="auth"
-              element={
-                <Auth/>
-              }
-            />
-            <Route
-              path="adminmain/edit"
-              element={
-                <AdminEdit/>
-              }
-            />
+          <Route path="adminmain/add" element={<Admin />} />
+          <Route path="adminmain/*" element={<AdminMain />} />
+          <Route path="auth" element={<Auth />} />
+          <Route path="adminmain/edit" element={<AdminEdit />} />
         </Routes>
       </div>
     </div>

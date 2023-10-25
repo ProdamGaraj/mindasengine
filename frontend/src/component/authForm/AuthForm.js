@@ -1,36 +1,39 @@
 import "../authForm/AuthForm.scss";
 import axios from "axios";
 import baseURL from "../../axios";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useCookies } from "react-cookie";
 import { useFormik } from "formik";
+import { useNavigate } from "react-router";
 
 export const BasicForm = () => {
   const [cookies, setCookie, removeCookie] = useCookies();
+  let navigate = useNavigate();
 
-  const cookiesString = document.cookie;
+  useEffect(() => {
+    const cookiesBlock = document.cookie.split(";");
+    const cookies2 = document.cookie;
+    cookiesBlock.forEach((cookie) => {
+      const [name, value] = cookie.split("=");
 
-  // Разделить строку на отдельные пары ключ-значение
-  const cookiesArray = cookiesString.split(";");
+    });
 
-  // Создать объект для хранения каждого cookie
-  const cookiesObject = {};
+    if (cookiesBlock.includes('tokenType') && cookiesBlock.includes('accessToken')) {
+      navigate('/adminmain')
+    }
 
-  // Заполнить объект каждым cookie
-  /* cookiesArray.forEach((cookie) => {
-    const [key, value] = cookie.split("=");
-    cookiesObject[key.trim()] = value.trim();
-  });*/
+  }, []);
 
-  console.log(document.cookie);
   const onSubmit = async (values, actions) => {
+    console.log(values);
     axios
       .post(baseURL + "/api/auth/signin", values)
       .then((res) => {
         // Обработка успешного ответа
         console.log(res.data);
-        setCookie("type", res.data.type, { path: "/" });
-        setCookie("token", res.data.token, { path: "/" });
+        setCookie("tokenType", res.data.type, { path: "/" });
+        setCookie("accessToken", res.data.token, { path: "/" });
+        navigate('/adminmain')
       })
       .catch((error) => {
         console.log(error);

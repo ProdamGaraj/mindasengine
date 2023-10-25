@@ -1,62 +1,168 @@
 import axios from "axios";
-import { useCookies } from "react-cookie";
 import baseURL from "../../axios.js";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import inpFile from "../../img/Vector.svg";
 import "../formEdit/formEdit.scss";
 import trash from "../../img/trash.svg";
+import { useNavigate } from "react-router";
+
+import { ModalDeleteConfirm } from "../modal/Modal.js";
+
 
 export const FormEdit = (props) => {
+  useEffect(() => {
+    if (props.state == null) {
+      navigate("/adminmain");
+    }
+  }, []);
+  const cookiesString = document.cookie;
+  const cookiesArray = cookiesString.split(";"); // Разделить строку на отдельные пары ключ-значение
+  const cookiesObject = {}; // Создать объект для хранения каждого cookie
+  let navigate = useNavigate();
   const [state, setState] = useState({
-    name: props.state.el.news.name,
-    description: props.state.el.news.description,
-    publication: props.state.el.news.publication,
-    files: props.state.el.files,
+    id:
+      props.state.state.show == "news"
+        ? props.state.el.news.id
+        : props.state.el.project.id,
+    name:
+      props.state.state.show == "news"
+        ? props.state.el.news.name
+        : props.state.el.project.name,
+    description:
+      props.state.state.show == "news"
+        ? props.state.el.news.description
+        : props.state.el.project.description,
+    publication:
+      props.state.state.show == "news"
+        ? props.state.el.news.publication
+        : props.state.el.project.publication,
+    files:
+      props.state.state.show == "news"
+        ? props.state.el.files
+        : props.state.el.files,
+    kind: props.state.state.show,
+    modalStatus: false
   });
-  console.log(props.state.state.show);
-  const [cookies, setCookie, removeCookie] = useCookies();
 
-  const header = {
-    Authorization: `${cookies.tokenType} ${cookies.accessToken}`,
-  };
+  cookiesArray.forEach((cookie) => {
+    const [key, value] = cookie.split("=");
+    cookiesObject[key.trim()] = value.trim();
+  });
+
+  useEffect(() => {
+    if (cookiesString === "") {
+      navigate("/auth");
+    }
+  }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setState({ ...state, [name]: value });
   };
   const handleFileChange = (e) => {
-    setState({ ...state, files: e.target.files });
+    const newFiles = Array.from(e.target.files); // создаем новый массив файлов из объекта FileList
+    state.files.push(...newFiles); // используем оператор spread для добавления новых файлов в конец существующего массива файлов
+    setState({ ...state, files: state.files }); // обновляем состояние, передавая новый массив файлов
   };
   const handleButtonDelete = (index) => {
-    console.log(index);
-    //state.files.splice()
-  } 
-
+      const updatedPhotos = [...state.files];
+      updatedPhotos.splice(index, 1);
+      setState({...state, files: updatedPhotos});
+  };
   const handleUpload = () => {
-    const { name, description, files } = state;
+    const { name, description, files, publication, id } = state;
     const formData = new FormData();
 
+    formData.append("id", id);
     formData.append("name", name);
     formData.append("description", description);
 
     for (let i = 0; i < files.length; i++) {
       formData.append("multipartFiles", files[i]);
     }
+    if (props.state.state.show == "news") {
+      formData.append("publication", publication);
+    }
 
-    axios
-      .post(baseURL + "/moderator/update/" + props.state.state.show, formData, header)
-      .then((response) => {
-        console.log(response.data);
-        console.log(formData);
-        // Handle the success response here
-      })
-      .catch((error) => {
-        console.error(error);
-        // Handle the error response here
-      });
+    console.log(formData);
+    formData.forEach((value, name) => {
+      console.log(name, value);
+    });
+
+    async function fetchData() {
+      try {
+        setState({ ...state, loading: true });
+        const response = await axios.put(
+          baseURL + "/moderator/update/" + state.kind,
+          formData,
+          {
+            headers: {
+              //"Content-Type": "application/json",
+              "Content-Type": "multipart/form-data",
+              Authorization: `${cookiesObject.tokenType} ${cookiesObject.accessToken}`,
+            },
+          }
+        );
+        setState({ ...state, projectList: response.data });
+        formData.forEach((value, name) => {
+          console.log(name, value);
+        });
+        setState({ ...state, loading: false });
+      } catch (error) {
+        setState({ ...state, loading: false });
+        console.log(error);
+      }
+    }
+
+    fetchData();
   };
+  const handleDelete = () => {
+    const { id } = state;
+    const formData = new FormData();
+
+    formData.append("id", id);
+    async function fetchData() {
+      try {
+        setState({ ...state, loading: true });
+        const response = await axios.delete(
+          baseURL + "/moderator/delete/" + state.kind,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+              Authorization: `${cookiesObject.tokenType} ${cookiesObject.accessToken}`,
+            }, 
+            data:formData
+          }
+        );
+        setState({ ...state, loading: false });
+        navigate("/adminmain");
+      } catch (error) {
+        setState({ ...state, loading: false });
+        console.log(error);
+      }
+    }
+
+    fetchData();
+
+  };
+
+  const handleOpenModal = () => {
+    setState({...state, modalStatus: true})
+  }
+  
+  const handleCloseModal = () => {
+    setState({...state, modalStatus: false})
+  }
+
   return (
-    <div className="form__news">
+    <div className="form__news" id="form__news">
+      {state.loading ? (
+        <div className="loading__wrapper">
+          <div className="loading"></div>
+        </div>
+      ) : (
+        <></>
+      )}
       <input
         type="text"
         name="name"
@@ -72,30 +178,55 @@ export const FormEdit = (props) => {
         value={state.description}
       />
 
-      <div className="edit__photo flex row" style={state.files.length > 2 ? {overflow: "scroll",overflowY: 'hidden'}: {}}>
-        {props.state.el.files.map((file, index) => (
-          <div className="col-6 img__wrapper">
-            <img
-              src={baseURL + "/images/" + file}
-              alt="Don't show"
-              style={{ maxWidth: "100%" }}
-            />
-            <button onClick={handleButtonDelete(index)}><img src={trash} alt="" /></button>
-          </div>
-        ))}
+      <div
+        className="edit__photo flex row"
+        style={
+          state.files.length > 2
+            ? { overflow: "scroll", overflowY: "hidden" }
+            : {}
+        }
+      >
+        {state.files.length > 0
+          ? state.files.map((file, index) => (
+              <div className="col-6 img__wrapper" key={index}>
+                <img
+                  src={baseURL + "/images/" + file}
+                  alt="Don't show"
+                  style={{ maxWidth: "100%" }}
+                />
+                <button onClick={() => handleButtonDelete(index)}>
+                  <img src={trash} alt="" />
+                </button>
+              </div>
+            ))
+          : ""}
       </div>
-      <label htmlFor="" className="input__file">
+      <label htmlFor="admin__uploadFile" className="input__file">
         <span className="flex align-cent">
           <img src={inpFile} /> Добавить медиафайлы
         </span>
         <input
+          style={{ display: "none" }}
           type="file"
           name="multipartFiles"
+          id="admin__uploadFile"
           multiple
           onChange={handleFileChange}
         />
       </label>
-      <button onClick={handleUpload} className="form__btn">Сохранить</button>
+      <div className="flex justif-ss-betw">
+        <button onClick={handleOpenModal} style={{padding: "10px", background: "red"}}>Удалить запись</button>
+
+        <button onClick={handleUpload} className="form__btn">
+          Сохранить
+        </button>
+
+        <ModalDeleteConfirm
+          open={state.modalStatus}
+          handleCloseModal={handleCloseModal}
+          handleDelete={handleDelete}
+        />
+      </div>
     </div>
   );
 };

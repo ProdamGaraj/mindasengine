@@ -1,12 +1,13 @@
 import contactImg from "../../img/contact__img.png";
 import "../contact/contact.scss";
 
-export const Contact = () => {
+export const Contact = (props) => {
   return (
     <div className="main__contact container flex justif-ss-betw align-cent">
       <div className="contact__list ">
         <div className="list__title">
-          <p>Контакты</p>
+          {props.language =="RU" ? <p>Контакты</p> : <p>Contacts</p>}
+          
         </div>
 
         <div className="list__item">
@@ -18,7 +19,7 @@ export const Contact = () => {
               <p>Mindasengine@gmail.com</p>
             </div>
             <div className="item__adress">
-                <p>Узбекистан г. Ташкент Хамида Олимжана, 4б</p>
+              {props.language =="RU" ? <p>Узбекистан г. Ташкент Хамида Олимжана, 4б</p> : <p>Uzbekistan Tashkent Hamida Olimzhan, 4b</p>}
             </div>
         </div>
       </div>

@@ -1,4 +1,27 @@
 .adminMainPage {
+  .loading__wrapper {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+  .loading {
+    position: absolute;
+
+    top: 50%;
+    left: 50%;
+    right: 50%;
+    transform: translate(50%, 50%);
+
+    width: 40px;
+    height: 40px;
+    animation: animate 2s infinite linear;
+    border-radius: 50%;
+    background-image: url("../../img/loading.png");
+    background-repeat: no-repeat;
+    background-size: 100%;
+  }
   .adminMain__filter {
     .search__label {
       width: 269px;
@@ -51,21 +74,74 @@
     color: #fff;
   }
   .item {
+    &__title {
+      margin-bottom: 20px;
+      font-family: "Exo", sans-serif;
+      font-size: 24px;
+      font-weight: 600;
+      line-height: 30px;
+      color: rgba(10, 164, 174, 1);
+    }
+    &__subtitle {
+      margin-bottom: 20px;
+
+      font-family: "Inter";
+      font-size: 20px;
+      font-weight: 400;
+      line-height: 24px;
+    }
+
+    &__text {
+      margin-bottom: 20px;
+      font-family: "Exo";
+      font-size: 20px;
+      font-weight: 400;
+      line-height: 27px;
+      
+    }
+
     margin-top: 31px;
     padding: 16px;
     background: rgba(242, 242, 242, 1);
-    .swiper{
+    .swiper {
       background: rgba(242, 242, 242, 1);
-     
     }
-    .swiper-slide{
+    .swiper-slide {
       border: 1px solid black;
     }
   }
 
   .adminMain__list {
+    position: relative;
     display: flex;
     flex-direction: column;
     gap: 24px;
+    .loading {
+      position: absolute;
+      top: 300px;
+      left: 50%;
+      right: 50%;
+      transform: translate(50%, 50%);
+
+      width: 40px;
+      height: 40px;
+      animation: animate 2s infinite linear;
+      border-radius: 50%;
+      background-image: url("../../img/loading.png");
+      background-repeat: no-repeat;
+      background-size: 100%;
+    }
+    @keyframes animate {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+  }
+
+  .react-datepicker-wrapper {
+    background-color: black;
   }
 }
