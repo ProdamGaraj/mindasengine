@@ -25,7 +25,8 @@ public class ProjectService {
     }
 
     public void deleteProject(Long id) {
-        photoService.deletePhotos(projectRepository.findById(id));
+        Project project = projectRepository.findById(id).orElseThrow();
+        photoService.deletePhotos(project);
         projectRepository.deleteById(id);
     }
 

@@ -26,7 +26,8 @@ public class NewsService {
     }
 
     public void deleteNews(Long id) {
-        photoService.deletePhotos(newsRepository.findById(id));
+        News news = newsRepository.findById(id).orElseThrow();
+        photoService.deletePhotos(news);
         newsRepository.deleteById(id);
     }
 
