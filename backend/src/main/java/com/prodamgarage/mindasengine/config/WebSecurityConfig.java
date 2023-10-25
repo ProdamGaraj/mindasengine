@@ -84,6 +84,7 @@ public class WebSecurityConfig {
     }*/
 
     @Bean
+    //TODO: Checkout headers
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(List.of("http://localhost:3000")); // Список источников из белого списка

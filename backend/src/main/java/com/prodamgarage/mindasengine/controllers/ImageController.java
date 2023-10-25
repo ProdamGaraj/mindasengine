@@ -15,6 +15,7 @@ import java.io.IOException;
 public class ImageController {
     @Autowired
     PhotoService photoService;
+    //TODO: Add INFO for NotFoundException
     @GetMapping(value = "/{imageName}", produces = MediaType.IMAGE_JPEG_VALUE)
     public ResponseEntity<byte[]> serveFile(@PathVariable String imageName) throws IOException {
         Resource resource = photoService.loadFileAsResource(imageName);

@@ -20,7 +20,6 @@ public class AuthEntryPointJwt implements AuthenticationEntryPoint {
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException)
             throws IOException {
-        //TODO: вроде бы логирование корсов
         logger.error("CORS violation - Request from {} to {} was blocked.", request.getHeader("Origin"), request.getRequestURI());
 
         logger.error("Unauthorized error: {}", authException.getMessage());

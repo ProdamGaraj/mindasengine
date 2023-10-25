@@ -19,6 +19,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/moderator")
 public class ModeratorController {
+    //TODO: Swagger
     @Autowired
     ProjectService projectService;
     @Autowired

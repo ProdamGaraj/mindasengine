@@ -15,6 +15,7 @@ import java.util.List;
 
 @Service
 public class NewsService {
+    //TODO:Change Autowired
     @Autowired
     NewsRepository newsRepository;
     @Autowired
@@ -33,13 +34,13 @@ public class NewsService {
 
     public List<NewsResponse> getAllNews() {
         LocalDate currentDate = LocalDate.now();
-        List<NewsResponse> newssWithFiles = new ArrayList<>();
-        Iterable<News> newss = newsRepository.findByPublicationLessThanEqual(currentDate);
-        for (News news : newss) {
+        List<NewsResponse> response = new ArrayList<>();
+        Iterable<News> newsList = newsRepository.findByPublicationLessThanEqual(currentDate);
+        for (News news : newsList) {
             List<Photo> photos = photoService.getPhotosByObject(news);
-            newssWithFiles.add(new NewsResponse(news, photos.stream().map(Photo::getFilename).toList()));
+            response.add(new NewsResponse(news, photos.stream().map(Photo::getFilename).toList()));
         }
-        return newssWithFiles;
+        return response;
     }
 
     public void updateNews(News news, List<MultipartFile> files, Long id) throws IOException {
