@@ -5,7 +5,6 @@ import axios from "axios";
 import baseURL from "../../axios";
 import Collapsible from "react-collapsible";
 
-
 //const baseUrl = "http://localhost:1337"
 
 export const News = (props) => {
@@ -36,7 +35,7 @@ export const News = (props) => {
   return (
     <div className="main__news container">
       <div className="news__title">
-        {props.language == "RU" ? <p>Новости</p> : <p>News</p> }
+        {props.language == "RU" ? <p>Новости</p> : <p>News</p>}
       </div>
       <ul className="news__list">
         {state.loading ? (
@@ -45,7 +44,13 @@ export const News = (props) => {
           state.newsList.map((el, i) => (
             <li className="item">
               <div className="item__title flex justif-ss-betw">
-                <div className={el.news.name.length > 50 ? "item__name bg" : "item__name"}>{el.news.name}</div>
+                <div
+                  className={
+                    el.news.name.length > 50 ? "item__name bg" : "item__name"
+                  }
+                >
+                  {el.news.name}
+                </div>
                 <div className="item__date">
                   <p>{el.news.publication}</p>
                 </div>
@@ -82,15 +87,23 @@ export const News = (props) => {
                   <p>{el.news.publication}</p>
                 </div>
                 <div className="item__trigger">
-                  <p className="title">
-                    {el.news.description.split(" ").slice(0, 8).join(" ")}
-                  </p>
-                  <Collapsible
-                    trigger={'Вся новость'}
-                    className="item__collapsible"
-                  >
+                  {el.news.description.length > 150 ? (
+                    <>
+                      <p className="title">
+                        {el.news.description.split(" ").slice(0, 8).join(" ")}
+                      </p>
+                      <Collapsible
+                        trigger={"Вся новость"}
+                        className="item__collapsible"
+                      >
+                        <div className="item__content">
+                          {el.news.description}
+                        </div>
+                      </Collapsible>
+                    </>
+                  ) : (
                     <div className="item__content">{el.news.description}</div>
-                  </Collapsible>
+                  )}
                 </div>
               </div>
             </li>

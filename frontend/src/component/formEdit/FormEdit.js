@@ -6,8 +6,7 @@ import "../formEdit/formEdit.scss";
 import trash from "../../img/trash.svg";
 import { useNavigate } from "react-router";
 
-import { ModalDeleteConfirm } from "../modal/Modal.js";
-
+import { ModalDeleteConfirm, ModalDeleteImgConfirm, ModalUpdateConfirm } from "../modal/Modal.js";
 
 export const FormEdit = (props) => {
   useEffect(() => {
@@ -41,7 +40,10 @@ export const FormEdit = (props) => {
         ? props.state.el.files
         : props.state.el.files,
     kind: props.state.state.show,
-    modalStatus: false
+    modalStatus: false,
+    imgDeleteModal: false,
+    modalConfirm: false,
+    indexDel: 0,
   });
 
   cookiesArray.forEach((cookie) => {
@@ -64,11 +66,13 @@ export const FormEdit = (props) => {
     state.files.push(...newFiles); // используем оператор spread для добавления новых файлов в конец существующего массива файлов
     setState({ ...state, files: state.files }); // обновляем состояние, передавая новый массив файлов
   };
-  const handleButtonDelete = (index) => {
-      const updatedPhotos = [...state.files];
-      updatedPhotos.splice(index, 1);
-      setState({...state, files: updatedPhotos});
+
+  const handleButtonDelete = () => {
+    const updatedPhotos = [...state.files];
+    updatedPhotos.splice(state.indexDel, 1);
+    setState({ ...state, files: updatedPhotos, imgDeleteModal: false });
   };
+
   const handleUpload = () => {
     const { name, description, files, publication, id } = state;
     const formData = new FormData();
@@ -104,18 +108,18 @@ export const FormEdit = (props) => {
           }
         );
         setState({ ...state, projectList: response.data });
-        formData.forEach((value, name) => {
-          console.log(name, value);
-        });
         setState({ ...state, loading: false });
+        setState({ ...state, modalConfirm: false });
       } catch (error) {
         setState({ ...state, loading: false });
+        setState({ ...state, modalConfirm: false });
         console.log(error);
       }
     }
 
     fetchData();
   };
+
   const handleDelete = () => {
     const { id } = state;
     const formData = new FormData();
@@ -130,8 +134,8 @@ export const FormEdit = (props) => {
             headers: {
               "Content-Type": "multipart/form-data",
               Authorization: `${cookiesObject.tokenType} ${cookiesObject.accessToken}`,
-            }, 
-            data:formData
+            },
+            data: formData,
           }
         );
         setState({ ...state, loading: false });
@@ -143,17 +147,30 @@ export const FormEdit = (props) => {
     }
 
     fetchData();
-
   };
 
   const handleOpenModal = () => {
-    setState({...state, modalStatus: true})
-  }
-  
-  const handleCloseModal = () => {
-    setState({...state, modalStatus: false})
-  }
+    setState({ ...state, modalStatus: true });
+  };
 
+  const handleCloseModal = () => {
+    setState({ ...state, modalStatus: false });
+  };
+
+  const handleOpenModalImg = (index) => {
+    setState({ ...state, indexDel: index, imgDeleteModal: true });
+
+  };
+  const handleCloseModalImg = () => {
+    setState({ ...state, imgDeleteModal: false });
+  };
+
+  const handleOpenUpdateModal = () => {
+    setState({...state, modalConfirm: true})
+  }
+  const handleCloseUpdateModal = () => {
+    setState({...state, modalConfirm: false})
+  }
   return (
     <div className="form__news" id="form__news">
       {state.loading ? (
@@ -188,16 +205,17 @@ export const FormEdit = (props) => {
       >
         {state.files.length > 0
           ? state.files.map((file, index) => (
+             <>
               <div className="col-6 img__wrapper" key={index}>
                 <img
                   src={baseURL + "/images/" + file}
                   alt="Don't show"
                   style={{ maxWidth: "100%" }}
                 />
-                <button onClick={() => handleButtonDelete(index)}>
+                <button onClick={() => handleOpenModalImg(index)}>
                   <img src={trash} alt="" />
                 </button>
-              </div>
+              </div></>
             ))
           : ""}
       </div>
@@ -215,9 +233,14 @@ export const FormEdit = (props) => {
         />
       </label>
       <div className="flex justif-ss-betw">
-        <button onClick={handleOpenModal} style={{padding: "10px", background: "red"}}>Удалить запись</button>
+        <button
+          onClick={handleOpenModal}
+          style={{ padding: "10px", background: "red" }}
+        >
+          Удалить запись
+        </button>
 
-        <button onClick={handleUpload} className="form__btn">
+        <button onClick={handleOpenUpdateModal} className="form__btn">
           Сохранить
         </button>
 
@@ -225,6 +248,17 @@ export const FormEdit = (props) => {
           open={state.modalStatus}
           handleCloseModal={handleCloseModal}
           handleDelete={handleDelete}
+        />
+        <ModalDeleteImgConfirm
+          open={state.imgDeleteModal}
+          handleCloseModal={handleCloseModalImg}
+          handleDelete={handleButtonDelete}
+          state={state}
+        />
+        <ModalUpdateConfirm
+          open={state.modalConfirm}
+          handleClose={handleCloseUpdateModal}
+          handleUpdate={handleUpload}
         />
       </div>
     </div>

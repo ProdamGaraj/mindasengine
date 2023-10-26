@@ -1,11 +1,11 @@
 import axios from 'axios';
 
 const instance = axios.create({
-    baseURL: 'http://localhost:1337',
+    baseURL: 'http://localhost:1337'
 });
 
 
-const baseURL = 'http://localhost:1337';   // http://37.77.106.193 - ip для prod backend
+const baseURL = 'https://s14nv2bq-1337.euw.devtunnels.ms';   // http://37.77.106.193 - ip для prod backend 
 
 
 instance.interceptors.request.use((config) => {
