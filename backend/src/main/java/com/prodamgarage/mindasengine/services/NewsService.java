@@ -4,7 +4,7 @@ import com.prodamgarage.mindasengine.dto.NewsResponse;
 import com.prodamgarage.mindasengine.models.News;
 import com.prodamgarage.mindasengine.models.Photo;
 import com.prodamgarage.mindasengine.repository.NewsRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -14,12 +14,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class NewsService {
-    //TODO:Change Autowired
-    @Autowired
-    NewsRepository newsRepository;
-    @Autowired
-    PhotoService photoService;
+    private final NewsRepository newsRepository;
+    private final PhotoService photoService;
 
     public void saveNews(News news, List<MultipartFile> fileList) throws IOException {
         newsRepository.save(news);

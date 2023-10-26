@@ -4,7 +4,7 @@ import com.prodamgarage.mindasengine.dto.ProjectResponse;
 import com.prodamgarage.mindasengine.models.Photo;
 import com.prodamgarage.mindasengine.models.Project;
 import com.prodamgarage.mindasengine.repository.ProjectRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -13,11 +13,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class ProjectService {
-    @Autowired
-    ProjectRepository projectRepository;
-    @Autowired
-    PhotoService photoService;
+    private final ProjectRepository projectRepository;
+    private final PhotoService photoService;
 
     public void saveProject(Project project, List<MultipartFile> fileList) throws IOException {
         projectRepository.save(project);
