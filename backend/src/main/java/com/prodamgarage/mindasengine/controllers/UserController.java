@@ -4,7 +4,7 @@ import com.prodamgarage.mindasengine.dto.NewsResponse;
 import com.prodamgarage.mindasengine.dto.ProjectResponse;
 import com.prodamgarage.mindasengine.services.NewsService;
 import com.prodamgarage.mindasengine.services.ProjectService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,11 +16,10 @@ import java.util.List;
 @CrossOrigin
 @RestController
 @RequestMapping("/")
+@RequiredArgsConstructor
 public class UserController {
-    @Autowired
-    ProjectService projectService;
-    @Autowired
-    NewsService newsService;
+    private final ProjectService projectService;
+    private final NewsService newsService;
     @GetMapping("projects")
     public ResponseEntity<Object> allProject() {
         List<ProjectResponse> projects = projectService.getAllProjects();

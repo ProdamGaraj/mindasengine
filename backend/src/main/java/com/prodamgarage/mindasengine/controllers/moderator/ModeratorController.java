@@ -1,14 +1,14 @@
 package com.prodamgarage.mindasengine.controllers.moderator;
 
-import com.prodamgarage.mindasengine.dto.NewsResponse;
-import com.prodamgarage.mindasengine.dto.ProjectResponse;
 import com.prodamgarage.mindasengine.dto.NewsRequest;
+import com.prodamgarage.mindasengine.dto.NewsResponse;
 import com.prodamgarage.mindasengine.dto.ProjectRequest;
+import com.prodamgarage.mindasengine.dto.ProjectResponse;
 import com.prodamgarage.mindasengine.models.News;
 import com.prodamgarage.mindasengine.models.Project;
 import com.prodamgarage.mindasengine.services.NewsService;
 import com.prodamgarage.mindasengine.services.ProjectService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,12 +18,10 @@ import java.util.List;
 @CrossOrigin
 @RestController
 @RequestMapping("/moderator")
+@RequiredArgsConstructor
 public class ModeratorController {
-    //TODO: Swagger
-    @Autowired
-    ProjectService projectService;
-    @Autowired
-    NewsService newsService;
+    private final ProjectService projectService;
+    private final NewsService newsService;
     @GetMapping("/get/projects")
     public ResponseEntity<List<ProjectResponse>> allProject() {
         List<ProjectResponse> projects = projectService.getAllProjects();

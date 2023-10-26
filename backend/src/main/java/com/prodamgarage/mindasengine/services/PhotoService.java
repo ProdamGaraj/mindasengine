@@ -4,7 +4,7 @@ import com.prodamgarage.mindasengine.models.News;
 import com.prodamgarage.mindasengine.models.Photo;
 import com.prodamgarage.mindasengine.models.Project;
 import com.prodamgarage.mindasengine.repository.PhotoRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -20,12 +20,11 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
+@RequiredArgsConstructor
 public class PhotoService {
     @Value("${upload.path}")
     private String uploadPath;
-    @Autowired
-    PhotoRepository photoRepository;
-
+    private final PhotoRepository photoRepository;
     public Resource loadFileAsResource(String filename) throws MalformedURLException {
         Path fileStorageLocation = Paths.get(uploadPath).toAbsolutePath().normalize();
         Path filePath = fileStorageLocation.resolve(filename).normalize();
