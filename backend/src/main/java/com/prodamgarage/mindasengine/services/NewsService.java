@@ -15,22 +15,22 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class NewsService {
+public class NewsService implements PostService<News> {
     private final NewsRepository newsRepository;
     private final PhotoService photoService;
-
-    public void saveNews(News news, List<MultipartFile> fileList) throws IOException {
+    @Override
+    public void save(News news, List<MultipartFile> fileList) throws IOException {
         newsRepository.save(news);
         photoService.savePhotos(news, fileList);
     }
-
-    public void deleteNews(Long id) {
+    @Override
+    public void delete(Long id) {
         News news = newsRepository.findById(id).orElseThrow();
         photoService.deletePhotos(news);
         newsRepository.deleteById(id);
     }
-
-    public List<NewsResponse> getAllNews() {
+    @Override
+    public List<NewsResponse> getAll() {
         LocalDate currentDate = LocalDate.now();
         List<NewsResponse> response = new ArrayList<>();
         Iterable<News> newsList = newsRepository.findByPublicationLessThanEqual(currentDate);
@@ -40,8 +40,8 @@ public class NewsService {
         }
         return response;
     }
-
-    public void updateNews(News news, List<MultipartFile> files, Long id) throws IOException {
+    @Override
+    public void update(News news, List<MultipartFile> files, Long id) throws IOException {
         News newsFromDb = newsRepository.findById(id).orElseThrow();
         newsFromDb.setName(news.getName());
         newsFromDb.setDescription(news.getDescription());
