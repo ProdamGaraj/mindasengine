@@ -6,7 +6,11 @@ import "../formEdit/formEdit.scss";
 import trash from "../../img/trash.svg";
 import { useNavigate } from "react-router";
 
-import { ModalDeleteConfirm, ModalDeleteImgConfirm, ModalUpdateConfirm } from "../modal/Modal.js";
+import {
+  ModalDeleteConfirm,
+  ModalDeleteImgConfirm,
+  ModalUpdateConfirm,
+} from "../modal/Modal.js";
 
 export const FormEdit = (props) => {
   useEffect(() => {
@@ -82,8 +86,11 @@ export const FormEdit = (props) => {
     formData.append("description", description);
 
     for (let i = 0; i < files.length; i++) {
-      formData.append("multipartFiles", files[i]);
+      if (typeof files[i] !== "string") {
+        formData.append("multipartFiles", files[i]);
+      }
     }
+
     if (props.state.state.show == "news") {
       formData.append("publication", publication);
     }
@@ -110,6 +117,7 @@ export const FormEdit = (props) => {
         setState({ ...state, projectList: response.data });
         setState({ ...state, loading: false });
         setState({ ...state, modalConfirm: false });
+        navigate("/adminmain");
       } catch (error) {
         setState({ ...state, loading: false });
         setState({ ...state, modalConfirm: false });
@@ -159,18 +167,17 @@ export const FormEdit = (props) => {
 
   const handleOpenModalImg = (index) => {
     setState({ ...state, indexDel: index, imgDeleteModal: true });
-
   };
   const handleCloseModalImg = () => {
     setState({ ...state, imgDeleteModal: false });
   };
 
   const handleOpenUpdateModal = () => {
-    setState({...state, modalConfirm: true})
-  }
+    setState({ ...state, modalConfirm: true });
+  };
   const handleCloseUpdateModal = () => {
-    setState({...state, modalConfirm: false})
-  }
+    setState({ ...state, modalConfirm: false });
+  };
   return (
     <div className="form__news" id="form__news">
       {state.loading ? (
@@ -205,17 +212,18 @@ export const FormEdit = (props) => {
       >
         {state.files.length > 0
           ? state.files.map((file, index) => (
-             <>
-              <div className="col-6 img__wrapper" key={index}>
-                <img
-                  src={baseURL + "/images/" + file}
-                  alt="Don't show"
-                  style={{ maxWidth: "100%" }}
-                />
-                <button onClick={() => handleOpenModalImg(index)}>
-                  <img src={trash} alt="" />
-                </button>
-              </div></>
+              <>
+                <div className="col-6 img__wrapper" key={index}>
+                  <img
+                    src={baseURL + "/images/" + file}
+                    alt="Don't show"
+                    style={{ maxWidth: "100%" }}
+                  />
+                  <button onClick={() => handleOpenModalImg(index)}>
+                    <img src={trash} alt="" />
+                  </button>
+                </div>
+              </>
             ))
           : ""}
       </div>
@@ -228,6 +236,7 @@ export const FormEdit = (props) => {
           type="file"
           name="multipartFiles"
           id="admin__uploadFile"
+          accept=".png,.jpg,.jpeg,.gif,.raw, .tiff,.bmp, .psd, .svg, .pdf, .eps, .HEIF"
           multiple
           onChange={handleFileChange}
         />

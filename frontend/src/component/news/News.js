@@ -87,10 +87,10 @@ export const News = (props) => {
                   <p>{el.news.publication}</p>
                 </div>
                 <div className="item__trigger">
-                  {el.news.description.length > 150 ? (
+                  {el.news.description.split(" ").length > 60 ? (
                     <>
                       <p className="title">
-                        {el.news.description.split(" ").slice(0, 8).join(" ")}
+                        {el.news.description.split(" ").slice(0, 10).join(" ")}
                       </p>
                       <Collapsible
                         trigger={"Вся новость"}
