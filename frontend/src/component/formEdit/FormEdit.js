@@ -6,11 +6,7 @@ import "../formEdit/formEdit.scss";
 import trash from "../../img/trash.svg";
 import { useNavigate } from "react-router";
 
-import {
-  ModalDeleteConfirm,
-  ModalDeleteImgConfirm,
-  ModalUpdateConfirm,
-} from "../modal/Modal.js";
+import { ModalDeleteConfirm } from "../modal/Modal.js";
 
 export const FormEdit = (props) => {
   useEffect(() => {
@@ -27,7 +23,15 @@ export const FormEdit = (props) => {
       props.state.state.show == "news"
         ? props.state.el.news.id
         : props.state.el.project.id,
+    idDefault:
+      props.state.state.show == "news"
+        ? props.state.el.news.id
+        : props.state.el.project.id,
     name:
+      props.state.state.show == "news"
+        ? props.state.el.news.name
+        : props.state.el.project.name,
+    nameDefault:
       props.state.state.show == "news"
         ? props.state.el.news.name
         : props.state.el.project.name,
@@ -35,11 +39,23 @@ export const FormEdit = (props) => {
       props.state.state.show == "news"
         ? props.state.el.news.description
         : props.state.el.project.description,
+    descriptionDefault:
+      props.state.state.show == "news"
+        ? props.state.el.news.description
+        : props.state.el.project.description,
     publication:
       props.state.state.show == "news"
         ? props.state.el.news.publication
         : props.state.el.project.publication,
+    publicationDefault:
+      props.state.state.show == "news"
+        ? props.state.el.news.publication
+        : props.state.el.project.publication,
     files:
+      props.state.state.show == "news"
+        ? props.state.el.files
+        : props.state.el.files,
+    filesDefault:
       props.state.state.show == "news"
         ? props.state.el.files
         : props.state.el.files,
@@ -48,6 +64,7 @@ export const FormEdit = (props) => {
     imgDeleteModal: false,
     modalConfirm: false,
     indexDel: 0,
+    preview: [],
   });
 
   cookiesArray.forEach((cookie) => {
@@ -67,8 +84,16 @@ export const FormEdit = (props) => {
   };
   const handleFileChange = (e) => {
     const newFiles = Array.from(e.target.files); // создаем новый массив файлов из объекта FileList
-    state.files.push(...newFiles); // используем оператор spread для добавления новых файлов в конец существующего массива файлов
-    setState({ ...state, files: state.files }); // обновляем состояние, передавая новый массив файлов
+
+    const updatedFiles = newFiles.map((file) => {
+      file.preview = URL.createObjectURL(file); // добавляем свойство 'preview' к каждому файлу со значением URL-адреса предварительного просмотра
+      return file;
+    });
+
+    setState({ ...state, files: [...state.files, ...updatedFiles] }); // обновляем состояние, добавляя новые файлы с превью в конец существующего массива файлов
+    //const newFiles = Array.from(e.target.files); // создаем новый массив файлов из объекта FileList
+    //state.files.push(...newFiles); // используем оператор spread для добавления новых файлов в конец существующего массива файлов
+    //setState({ ...state, files: state.files }); // обновляем состояние, передавая новый массив файлов
   };
 
   const handleButtonDelete = () => {
@@ -214,11 +239,19 @@ export const FormEdit = (props) => {
           ? state.files.map((file, index) => (
               <>
                 <div className="col-6 img__wrapper" key={index}>
-                  <img
-                    src={baseURL + "/images/" + file}
-                    alt="Don't show"
-                    style={{ maxWidth: "100%" }}
-                  />
+                  {state.files[index].preview == undefined ? (
+                    <img
+                      src={baseURL + "/images/" + file}
+                      alt="Don't show"
+                      style={{ maxWidth: "100%" }}
+                    />
+                  ) : (
+                    <img
+                      src={state.files[index].preview}
+                      alt="Don't show"
+                      style={{ maxWidth: "100%" }}
+                    />
+                  )}
                   <button onClick={() => handleOpenModalImg(index)}>
                     <img src={trash} alt="" />
                   </button>
@@ -249,7 +282,16 @@ export const FormEdit = (props) => {
           Удалить запись
         </button>
 
-        <button onClick={handleOpenUpdateModal} className="form__btn">
+        <button
+          onClick={
+            state.description === state.descriptionDefault &&
+            state.files === state.filesDefault &&
+            state.publication === state.publicationDefault
+              ? () => navigate("/adminmain")
+              : handleOpenUpdateModal
+          }
+          className="form__btn"
+        >
           Сохранить
         </button>
 
@@ -258,16 +300,15 @@ export const FormEdit = (props) => {
           handleCloseModal={handleCloseModal}
           handleDelete={handleDelete}
         />
-        <ModalDeleteImgConfirm
+        <ModalDeleteConfirm
           open={state.imgDeleteModal}
           handleCloseModal={handleCloseModalImg}
           handleDelete={handleButtonDelete}
-          state={state}
         />
-        <ModalUpdateConfirm
+        <ModalDeleteConfirm
           open={state.modalConfirm}
-          handleClose={handleCloseUpdateModal}
-          handleUpdate={handleUpload}
+          handleCloseModal={handleCloseUpdateModal}
+          handleDelete={handleUpload}
         />
       </div>
     </div>
