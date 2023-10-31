@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  frontend:
+  mind-as-engine-frontend:
     container_name: frontend
     image: frontend
     build: 
@@ -13,7 +13,7 @@ services:
     networks:
       - 'default'
 
-  backend:
+  mind-as-engine-backend:
     container_name: mindasengine
     image: 'mindasengine'
     build:
@@ -22,13 +22,13 @@ services:
       - database
     env_file: environment.env
     volumes:
-      - /home/mindasengine/res:/backend/src/main/resources/images
+      - ./backend/src/main/resources/images:/home/mindasengine/images
     ports:
       - '1337:1337'
     networks:
       - 'default'
 
-  database:
+  mind-as-engine-database:
     container_name: postgres
     image: postgres:14-alpine3.18
     build:
