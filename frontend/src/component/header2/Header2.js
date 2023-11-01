@@ -6,7 +6,8 @@ import { motion } from "framer-motion";
 
 export const Header2 = (props) => {
   return (
-    <header>
+    <header className="h-2">
+      {console.log(process.env)}
       <motion.div
         className="header__wrapper flex justif-ss-betw align-cent container"
       >

@@ -277,7 +277,8 @@ export const FormEdit = (props) => {
       <div className="flex justif-ss-betw">
         <button
           onClick={handleOpenModal}
-          style={{ padding: "10px", background: "red" }}
+          className="form__btn"
+          style={{background:"#dd586d"}}
         >
           Удалить запись
         </button>
