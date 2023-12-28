@@ -14,16 +14,16 @@
     display: flex;
     flex-direction: column;
     gap: 32px;
-    padding: 0 0 0 97.5px  ;
+    padding: 0 0 0 97.5px;
     @media (max-width: 844px) {
-      padding: 0 0 0 15.5px ;
+      padding: 0 0 0 15.5px;
     }
-    .news__loading{
+    .news__loading {
       position: absolute;
-      top:25px;
+      top: 25px;
       left: 50%;
       right: 50%;
-      transform: translate(50%,50%);
+      transform: translate(50%, 50%);
 
       width: 40px;
       height: 40px;
@@ -50,31 +50,31 @@
         .item__name {
           color: rgba(10, 164, 174, 1);
           font-family: "Exo", sans-serif;
-          font-size: calc(14px + 18 * (100vw / 1920));
+          font-size: calc(12px + 18 * (100vw / 1920));
           font-weight: 600;
           line-height: 43px;
-          &.bg{
-            font-size: 22px;
-          }
         }
         .item__date {
+          align-self: center;
           font-family: "Exo", sans-serif;
           font-weight: 400;
           line-height: 20px;
           font-size: calc(12px + 3 * (100vw / 1920));
+          p {
+            width: 74px;
+          }
 
-          .item__date-mob{
+          .item__date-mob {
             display: none;
           }
 
-          @media (max-width:768px) {
+          @media (max-width: 768px) {
             display: none;
-            &-mob{
+            &-mob {
               display: block;
             }
           }
         }
-        
       }
 
       &__main {
@@ -92,8 +92,8 @@
           @media (max-width: 844px) {
             margin: 0 auto;
           }
-          .swiper-slide{
-            img{
+          .swiper-slide {
+            img {
               max-width: 100%;
               max-height: 100%;
               height: 100%;
@@ -109,25 +109,36 @@
           line-height: 27px;
 
           padding-right: 10px;
+          span{
+            font-weight: 600;
+          }
+          .show-more__button{
+            padding: 15px 0 5px !important;
+            justify-content: start !important;
+
+            button{
+              margin-left: 15px;
+            }
+          }
         }
       }
-      .item__date-mob{
+      .item__date-mob {
         display: none;
-        @media (max-width:768px) {
+        @media (max-width: 768px) {
           display: block;
         }
       }
-      &__trigger{
-        .title{
+      &__trigger {
+        .title {
           font-family: "Exo", sans-serif;
           font-size: 16px;
           margin-bottom: 15px;
           font-weight: 600;
         }
-        .Collapsible{
+        .Collapsible {
           display: flex;
           flex-direction: column-reverse;
-          span{
+          span {
             margin-top: 20px;
           }
         }

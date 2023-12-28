@@ -43,7 +43,7 @@ public class PhotoService {
                 Photo photo = switch (entity.getClass().getSimpleName()) {
                     case "News" -> new Photo(resultFilename, null, (News) entity);
                     case "Project" -> new Photo(resultFilename, (Project) entity, null);
-                    default -> throw new IllegalArgumentException("Unsupported entity type");
+                    default -> throw new IllegalArgumentException("Unsupported entity type" + entity.getClass().getSimpleName());
                 };
                 photoRepository.save(photo);
             }

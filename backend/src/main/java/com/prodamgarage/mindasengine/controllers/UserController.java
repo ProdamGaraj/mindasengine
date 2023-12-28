@@ -1,9 +1,8 @@
 package com.prodamgarage.mindasengine.controllers;
 
-import com.prodamgarage.mindasengine.dto.NewsResponse;
-import com.prodamgarage.mindasengine.dto.ProjectResponse;
-import com.prodamgarage.mindasengine.services.NewsService;
-import com.prodamgarage.mindasengine.services.ProjectService;
+import com.prodamgarage.mindasengine.models.News;
+import com.prodamgarage.mindasengine.models.Project;
+import com.prodamgarage.mindasengine.services.PostServiceFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -18,19 +17,18 @@ import java.util.List;
 @RequestMapping("/")
 @RequiredArgsConstructor
 public class UserController {
-    private final ProjectService projectService;
-    private final NewsService newsService;
+    private final PostServiceFactory postServiceFactory;
     @GetMapping("projects")
-    public ResponseEntity<Object> allProject() {
-        List<ProjectResponse> projects = projectService.getAllProjects();
+    public ResponseEntity<?> allProject() {
+        List<?> projects = postServiceFactory.createService(new Project()).getAll();
         if (projects == null) {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(projects);
     }
     @GetMapping("/news")
-    public ResponseEntity<List<NewsResponse>> allNews() {
-        List<NewsResponse> news = newsService.getAllNews();
+    public ResponseEntity<?> allNews() {
+        List<?> news = postServiceFactory.createService(new News()).getAll();
         if (news == null) {
             return ResponseEntity.notFound().build();
         }
