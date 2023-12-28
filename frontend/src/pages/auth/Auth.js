@@ -3,7 +3,7 @@ import { AuthForm } from "../../component/authForm/AuthForm";
 import { BasicForm } from "../../component/authForm/AuthForm";
 import { Header3 } from "../../component/header3/Header3";
 
-export const Auth = () => {
+const Auth = () => {
     return(
         <>
         <Header3/>
@@ -11,3 +11,5 @@ export const Auth = () => {
         </>
     )
 }
+
+export default Auth

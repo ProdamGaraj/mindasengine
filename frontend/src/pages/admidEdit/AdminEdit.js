@@ -4,7 +4,7 @@ import { Link, useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
-export const AdminEdit = (props) => {
+ const AdminEdit = (props) => {
     let { state } = useLocation();
     let navigate = useNavigate();
     //console.log(state);
@@ -31,3 +31,5 @@ export const AdminEdit = (props) => {
     </>
   );
 };
+
+export default AdminEdit;

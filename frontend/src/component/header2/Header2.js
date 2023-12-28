@@ -4,7 +4,7 @@ import { Logo } from "../logo/Logo";
 import { ContactsHeader } from "../headerCont/ContactHeader";
 import { motion } from "framer-motion";
 
-export const Header2 = (props) => {
+ const Header2 = (props) => {
   return (
     <header className="h-2">
       <motion.div
@@ -17,3 +17,5 @@ export const Header2 = (props) => {
     </header>
   );
 };
+
+export default Header2;

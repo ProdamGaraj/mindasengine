@@ -16,7 +16,7 @@ import { ItemNews } from "./ItemNews";
 import { ItemProject } from "./ItemProject";
 import { useLocation } from 'react-router-dom';
 
-export const AdminMain = (props) => {
+ const AdminMain = (props) => {
   const [state, setState] = useState({
     publList: [],
     pubListProject: [],
@@ -124,3 +124,4 @@ export const AdminMain = (props) => {
     </>
   );
 };
+export default AdminMain;
