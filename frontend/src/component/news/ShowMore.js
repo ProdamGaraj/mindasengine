@@ -2,7 +2,6 @@ import ShowMore from "react-show-more-button";
 import { useEffect, useState } from "react";
 
 export const ShowMoreContent = (props) => {
-  console.log(props);
   const [state, setState] = useState({
     button: true,
   });

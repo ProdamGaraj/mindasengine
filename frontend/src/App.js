@@ -1,16 +1,16 @@
 import { Header2 } from "./component/header2/Header2";
-import { Header3 } from "./component/header3/Header3";
-import { Header } from "./component/header/Header";
 import { Admin } from "./pages/admin/Admin";
-import { BrowserRouter } from "react-router-dom";
 import { Main } from "./pages/main/Main";
 import { Footer } from "./component/footer/Footer";
 import { Auth } from "./pages/auth/Auth";
 import { Route, Routes, RedirectFunction } from "react-router-dom";
 import { AdminMain } from "./pages/adminMain/AdminMain";
+import { lazy, Suspense } from "react";
 
 import { useState } from "react";
 import { AdminEdit } from "./pages/admidEdit/AdminEdit";
+
+
 
 function App() {
   const [state, setState] = useState({

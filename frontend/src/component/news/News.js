@@ -11,14 +11,15 @@ export const News = (props) => {
     newsList: [],
     newsImgList: [],
     loading: false,
+    counter: 3,
   });
 
   const [heightArray, setHeightArray] = useState([]);
-  console.log(state);
   const handleResize = (entry, width, height) => {
     setHeightArray((prevHeightArray) => {
       const newArray = [...prevHeightArray];
-      newArray[entry] = height;
+      newArray[entry] = height > 17 ? height : 200;
+      console.log(height);
       return newArray;
     });
   };
@@ -27,7 +28,8 @@ export const News = (props) => {
     async function fetchData() {
       try {
         setState({ ...state, loading: true });
-        const response = await axios.get(baseURL + "/news");
+        const response = await axios.get(baseURL + "/news", {});
+        console.log(response.data);
         setState({ ...state, loading: false });
         setState({ ...state, newsList: response.data });
       } catch (error) {
@@ -47,7 +49,7 @@ export const News = (props) => {
         {state.loading ? (
           <div className="news__loading"></div>
         ) : (
-          state.newsList.map((el, i) => (
+          state.newsList.slice(0, state.counter).map((el, i) => (
             <li className="item">
               <div className="item__title flex justif-ss-betw">
                 <div
@@ -104,7 +106,10 @@ export const News = (props) => {
                 </div>
                 <div className="item__trigger">
                   <div className="item__content">
-                    <ShowMoreContent height={heightArray[i] > 16 ? heightArray[i] : 100 } content={el.news.description}/>
+                    <ShowMoreContent
+                      height={heightArray[i]}
+                      content={el.news.description}
+                    />
                   </div>
                 </div>
               </div>
@@ -112,6 +117,17 @@ export const News = (props) => {
           ))
         )}
       </ul>
+      <div className="news__button">
+        {state.counter < state.newsList.length ? (
+          <button
+            onClick={() => setState({ ...state, counter: state.counter + 1 })}
+          >
+            Показать ещё
+          </button>
+        ) : (
+          ""
+        )}
+      </div>
     </div>
   );
 };

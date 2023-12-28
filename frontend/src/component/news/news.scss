@@ -145,6 +145,15 @@
       }
     }
   }
+  .news__button{
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+
+    button{
+      cursor: pointer;
+    }
+  }
   .news__btn {
     margin-top: 40px;
 
