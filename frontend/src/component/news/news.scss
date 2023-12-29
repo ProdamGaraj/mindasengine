@@ -87,8 +87,6 @@
           max-width: 380px;
           width: 100%;
 
-          //height: 168px;
-          //background-color: #000;
           @media (max-width: 844px) {
             margin: 0 auto;
           }
@@ -114,10 +112,20 @@
           }
           .show-more__button{
             padding: 15px 0 5px !important;
-            justify-content: start !important;
+            justify-content: end !important;
 
             button{
-              margin-left: 15px;
+              margin-top: 1em;
+              margin-right: 15px;
+            }
+          }
+          .news__text-sh{
+            overflow: hidden;
+            position: relative;
+            .showContent__button{
+              position: absolute;
+              top: 90%;
+              right: 0;
             }
           }
         }

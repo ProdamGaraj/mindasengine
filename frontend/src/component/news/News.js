@@ -4,6 +4,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import axios from "axios";
 import baseURL from "../../axios";
 import ReactResizeDetector from "react-resize-detector";
+import ShowMoreCustom from "./ShowMoreCustom";
 import { ShowMoreContent } from "./ShowMore";
 
 export const News = (props) => {
@@ -15,15 +16,23 @@ export const News = (props) => {
   });
 
   const [heightArray, setHeightArray] = useState([]);
+  const [heightArray1, setHeightArray1] = useState([]);
   const handleResize = (entry, width, height) => {
     setHeightArray((prevHeightArray) => {
       const newArray = [...prevHeightArray];
       newArray[entry] = height > 17 ? height : 200;
-      console.log(height);
       return newArray;
     });
   };
-  console.log(heightArray);
+
+  const handleResize1 = (entry, width, height) => {
+    setHeightArray1((prevHeightArray) => {
+      const newArray = [...prevHeightArray];
+      newArray[entry] = height;
+      return newArray;
+    });
+  };
+
   useEffect(() => {
     async function fetchData() {
       try {
@@ -106,10 +115,7 @@ export const News = (props) => {
                 </div>
                 <div className="item__trigger">
                   <div className="item__content">
-                    <ShowMoreContent
-                      height={heightArray[i]}
-                      content={el.news.description}
-                    />
+                    <ShowMoreContent content={el.news.description} i={i} height={heightArray[i]}/>
                   </div>
                 </div>
               </div>
@@ -122,7 +128,7 @@ export const News = (props) => {
           <button
             onClick={() => setState({ ...state, counter: state.counter + 1 })}
           >
-            Показать ещё
+            Показать ещё новость
           </button>
         ) : (
           ""

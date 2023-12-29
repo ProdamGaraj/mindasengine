@@ -1,14 +1,13 @@
 import ShowMore from "react-show-more-button";
-import { useEffect, useState, useRef } from "react";
-import ShowMoreText from "react-show-more-text";
+import { useEffect, useRef, useState } from "react";
+
 
 export const ShowMoreContent = (props) => {
   const [state, setState] = useState({
     button: true,
-    showMore: false,
+    showMore: false
   });
-  //console.log("Фотка " + props.height / 31);
-  console.log(props.content.length);
+  
   return (
     <>
       {/* Принимаем 60 символов за 1 строку 

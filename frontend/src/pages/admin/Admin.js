@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Header3 } from "../../component/header3/Header3";
 import { FormNews2 } from "../../component/form/formNews2";
 
-export const Admin = () => {
+ const Admin = () => {
   return (
     <>
     <Header3/>
@@ -24,3 +24,5 @@ export const Admin = () => {
 
   );
 };
+
+export default Admin
