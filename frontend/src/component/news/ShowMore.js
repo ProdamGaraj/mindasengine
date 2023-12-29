@@ -16,7 +16,7 @@ export const ShowMoreContent = (props) => {
       */}
       {state.showMore
         ? props.content
-        : `${props.content.substring(0, (props.height / 31) * 50)}`}
+        : `${props.content.substring(0, (props.height / 31) * 53)}`}
       {props.content.length / 50 > props.height / 31 ? (
         <>
           <div className="flex" style={{justifyContent:"end"}}>

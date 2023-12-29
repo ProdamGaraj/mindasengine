@@ -115,7 +115,11 @@ export const News = (props) => {
                 </div>
                 <div className="item__trigger">
                   <div className="item__content">
-                    <ShowMoreContent content={el.news.description} i={i} height={heightArray[i]}/>
+                    <ShowMoreContent
+                      content={el.news.description}
+                      i={i}
+                      height={heightArray[i]}
+                    />
                   </div>
                 </div>
               </div>
