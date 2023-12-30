@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 
 import "../main/main.scss";
 
-export const Main = (props) => {
+ const Main = (props) => {
   return (
     <motion.main
       className="main"
@@ -33,3 +33,5 @@ export const Main = (props) => {
     </motion.main>
   );
 };
+
+export default Main;

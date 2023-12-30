@@ -1,28 +1,28 @@
 version: '3.8'
 
 services:
-  frontend:
-    container_name: frontend
-    image: frontend
-    build: 
-      context: /frontend
-    depends_on:
-      - backend
-    ports:
-      - '80:3000'
-    networks:
-      - 'default'
+  # frontend:
+  #   container_name: frontend
+  #   image: frontend
+  #   build: 
+  #     context: /frontend
+  #   depends_on:
+  #     - backend
+  #   ports:
+  #     - '80:3000'
+  #   networks:
+  #     - 'default'
 
   backend:
     container_name: mindasengine
     image: 'mindasengine'
     build:
-      context: /backend
+      context: ./backend
     depends_on:
       - database
     env_file: environment.env
     volumes:
-      - /home/mindasengine/res:/backend/src/main/resources/images
+      - C:\Users\Дима\Desktop\Работа\mindasengine\mindasengine\backend\src\main\resources\images:/home/mindasengine/images
     ports:
       - '1337:1337'
     networks:

@@ -3,8 +3,9 @@ import { FormEdit } from "../../component/formEdit/FormEdit";
 import { Link, useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import "../admin/admin.scss";
 
-export const AdminEdit = (props) => {
+ const AdminEdit = (props) => {
     let { state } = useLocation();
     let navigate = useNavigate();
     //console.log(state);
@@ -31,3 +32,5 @@ export const AdminEdit = (props) => {
     </>
   );
 };
+
+export default AdminEdit;
