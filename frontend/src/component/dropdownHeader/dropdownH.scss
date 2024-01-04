@@ -30,12 +30,19 @@
   .Dropdown-menu {
     margin-top: 5px;
     font-weight: 600;
+    position: fixed;
+    top: 42px;
+    width: auto;
+    @media (max-width: 768px) {
+      top:35px;
+    }
     .Dropdown-option.is-selected {
       background-color: rgba(171, 171, 171, 1);
       color: rgba(79, 79, 79, 1);
     }
     .Dropdown-option {
       color: rgba(0, 0, 0, 1);
+      padding: 8px 20px;
     }
   }
 }

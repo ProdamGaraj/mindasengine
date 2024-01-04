@@ -38,7 +38,6 @@ export const News = (props) => {
       try {
         setState({ ...state, loading: true });
         const response = await axios.get(baseURL + "/news", {});
-        console.log(response.data);
         setState({ ...state, loading: false });
         setState({ ...state, newsList: response.data });
       } catch (error) {
@@ -59,7 +58,7 @@ export const News = (props) => {
           <div className="news__loading"></div>
         ) : (
           state.newsList.slice(0, state.counter).map((el, i) => (
-            <li className="item">
+            <li className="item" id={i}>
               <div className="item__title flex justif-ss-betw">
                 <div
                   className={
