@@ -1,5 +1,6 @@
 import ShowMore from "react-show-more-button";
 import { useEffect, useState, useRef } from "react";
+import { Link, animateScroll as scroll } from "react-scroll";
 
 export const ShowMoreContent = (props) => {
   const [state, setState] = useState({
@@ -7,6 +8,8 @@ export const ShowMoreContent = (props) => {
     showMore: false,
     textHeight: 0,
     strN: 0,
+    index: `${props.i}`,
+    height: "100px",
   });
 
   const blockRef = useRef(null);
@@ -46,6 +49,8 @@ export const ShowMoreContent = (props) => {
     };
   }, []);
 
+  console.log(props);
+ // state.height > 54 ? console.log('opa') : console.log('more');
   return (
     <>
       {/*
@@ -55,35 +60,55 @@ export const ShowMoreContent = (props) => {
 
         // state.textHeight > Math.round(props.height / fontSize - 2) * fontSize  // это выражение сравнение, где высота текста (в нашем случае textDivRef) сравнивается с максимально возможной отрисованной высотой
        */}
-      {state.showMore ? (
-        <p ref={blockRef}>
-          <div ref={textDivRef}>{props.content}</div>
-        </p>
-      ) : (
-        <p
-          ref={blockRef}
-          style={{
-            maxHeight:
-              Math.round(props.height / fontSize - 2) * fontSize + "px",
-            overflow: "hidden",
-          }}
-        >
-          <div ref={textDivRef}>{`${props.content}`}</div>
-        </p>
-      )}
-      {state.textHeight > Math.round(props.height / fontSize - 2) * fontSize ? (
+
+      <p
+        ref={blockRef}
+        className="content__text"
+        style={
+          state.textHeight > props.height
+            ? state.showMore
+              ? { height: state.textHeight + "px", overflow: "hidden" }
+              : {
+                  height:
+                    Math.round(props.height / fontSize - 2) * fontSize + "px",
+                  overflow: "hidden",
+                }
+            : {
+                // maxHeight:
+                //   Math.round(props.height / fontSize - 2) * fontSize + "px",
+                //   overflow: "hidden",
+              }
+        }
+      >
+        <div ref={textDivRef}>{props.content}</div>
+      </p>
+      {state.textHeight > Math.round(props.height / fontSize - 2) * fontSize && state.textHeight > props.height ? (
         <>
           <div
             className="flex showMore__btn"
             style={{ justifyContent: "end", marginTop: "15px" }}
           >
             <button
-              onClick={() => setState({ ...state, showMore: !state.showMore })}
+              onClick={() => {
+                blockRef.current.style.height = "100%";
+                setState({ ...state, showMore: !state.showMore });
+              }}
             >
               {!state.showMore ? (
                 "Показать всю новость"
               ) : (
-                <a href={"#" + props.i}>Скрыть новость</a>
+                <Link
+                  to={state.index}
+                  spy={true}
+                  smooth={true}
+                  offset={-70}
+                  duration={700}
+                  onClick={() => {
+                    setState({ ...state, showMore: !state.showMore });
+                  }}
+                >
+                  Скрыть новость
+                </Link>
               )}
             </button>
           </div>

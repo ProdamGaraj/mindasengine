@@ -135,6 +135,9 @@
               right: 0;
             }
           }
+           .content__text{
+           transition: height 0.7s ease;
+          }
         }
       }
       .item__date-mob {

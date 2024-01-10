@@ -56,8 +56,10 @@ export const Projects = (props) => {
           ) : (
             state.projectList.map((el, i) => (
               <>
-                <div className="info__name">{el.project.name}</div>
-                <li className="item flex justif-ss-betw" id={i + "pr"}>
+                <div className="info__name" id={i + "pr"}>
+                  {el.project.name}
+                </div>
+                <li className="item flex justif-ss-betw">
                   <div className="item__info">
                     <div className="info__desc">
                       <ShowMoreContent

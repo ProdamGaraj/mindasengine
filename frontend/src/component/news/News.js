@@ -1,10 +1,9 @@
 import "../news/news.scss";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import axios from "axios";
 import baseURL from "../../axios";
 import ReactResizeDetector from "react-resize-detector";
-import ShowMoreCustom from "./ShowMoreCustom";
 import { ShowMoreContent } from "./ShowMore";
 
 export const News = (props) => {
@@ -13,22 +12,16 @@ export const News = (props) => {
     newsImgList: [],
     loading: false,
     counter: 3,
+    textHeight: 0,
   });
-
+  const blockRef = useRef(null);
+  const textDivRef = useRef(null);
+  const [fontSize, setFontSize] = useState(18.5);
   const [heightArray, setHeightArray] = useState([]);
-  const [heightArray1, setHeightArray1] = useState([]);
   const handleResize = (entry, width, height) => {
     setHeightArray((prevHeightArray) => {
       const newArray = [...prevHeightArray];
       newArray[entry] = height > 17 ? height : 200;
-      return newArray;
-    });
-  };
-
-  const handleResize1 = (entry, width, height) => {
-    setHeightArray1((prevHeightArray) => {
-      const newArray = [...prevHeightArray];
-      newArray[entry] = height;
       return newArray;
     });
   };
@@ -48,6 +41,40 @@ export const News = (props) => {
 
     fetchData();
   }, [state.limit]);
+
+  useEffect(() => {
+    const handleFontSizeChange = () => {
+      if (blockRef.current) {
+        const computedStyle = window.getComputedStyle(blockRef.current);
+        const fontSizeValue = parseFloat(
+          computedStyle.getPropertyValue("line-height")
+        );
+        setFontSize(fontSizeValue);
+      }
+    };
+
+    handleFontSizeChange(); // Вызываем при монтировании, чтобы получить начальное значение font-size
+    window.addEventListener("resize", handleFontSizeChange); // Добавляем слушатель на изменение размеров окна
+    return () => {
+      window.removeEventListener("resize", handleFontSizeChange); // Удаляем слушатель при размонтировании компонента
+    };
+  }, []);
+
+  useEffect(() => {
+    const handleHeightChange = () => {
+      if (textDivRef.current) {
+        const height = textDivRef.current.offsetHeight;
+        setState({ ...state, textHeight: height });
+      }
+    };
+
+    handleHeightChange(); // Вызываем при монтировании, чтобы получить начальное значение font-size
+    window.addEventListener("resize", handleHeightChange); // Добавляем слушатель на изменение размеров окна
+    return () => {
+      window.removeEventListener("resize", handleHeightChange); // Удаляем слушатель при размонтировании компонента
+    };
+  }, []);
+
   return (
     <div className="main__news container">
       <div className="news__title">

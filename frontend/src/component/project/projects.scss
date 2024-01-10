@@ -47,6 +47,10 @@
         font-weight: 400;
         line-height: 27px;
         font-size: calc(14px + 6 * (100vw / 1920));
+
+        .content__text{
+          transition: height 0.7s ease;
+        }
       }
     }
     .slider__title {

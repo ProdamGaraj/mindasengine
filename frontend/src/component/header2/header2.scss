@@ -12,9 +12,17 @@ header {
   background-color: #fff;
   @media (max-width: 768px) {
     .header__wrapper {
+      position: relative;
       img {
         width: calc(155px + 71 * (100vw / 1920));
         height: calc(42px + 19 * (100vw / 1920));
+      }
+      .Dropdown-root{
+        position: absolute;
+      }
+      a{
+        flex: 1 1 auto;
+        justify-content: center;
       }
     }
     .header__nav {
