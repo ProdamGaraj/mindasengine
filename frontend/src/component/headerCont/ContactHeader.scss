@@ -1,13 +1,15 @@
-.header__contact{
-    display: flex;
-    @media (max-width:768px) {
-        display: none;
+.header__contact {
+  display: flex;
+  @media (max-width: 768px) {
+    .contact__list {
+      display: none;
     }
-    .contact__list{
-        text-align: end;
-        font-family: 'Inter', sans-serif;
-        .list__item:last-child{
-            text-decoration: underline;
-        }
+  }
+  .contact__list {
+    text-align: end;
+    font-family: "Inter", sans-serif;
+    .list__item:last-child {
+      text-decoration: underline;
     }
+  }
 }

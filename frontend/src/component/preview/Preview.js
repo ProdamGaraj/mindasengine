@@ -2,7 +2,6 @@ import previewImg from "../../img/preview__img.png";
 import "../preview/preview.scss";
 
 export const Preview = (props) => {
-  console.log(props.language);
   return (
     <div className="main__preview container">
       <div className="preview__text">
@@ -18,7 +17,7 @@ export const Preview = (props) => {
             консультирует международные компании в части трансфера технологий и
             цифровизации.
           </p>
-        ) : (
+        ) : props.language == "EN" ? (
           <p>
             In the Republic of Uzbekistan, MAY implements projects in the
             following areas, BilimBank corporate training systems, develops
@@ -28,6 +27,18 @@ export const Preview = (props) => {
             project, advises international companies in terms of technology
             transfer and digitalization.
           </p>
+        ) : props.language == "UZ" ? (
+          <p>
+            O'zbekiston Respublikasida may quyidagi sohalarda loyihalarni,
+            bilimbank korporativ ta'lim tizimlarini amalga oshiradi, Uzmetall,
+            O'zbekiston fanlar Akademiyasi yadro fizikasi instituti uchun
+            raqamli texnologik yechimlarni ishlab chiqadi, HUMOUN loyihasining
+            qishloq xo'jaligi dronlarini o'qitish va boshqarish tizimlarini
+            ishlab chiqadi, xalqaro kompaniyalarga texnologiyalar transferi va
+            raqamlashtirish bo'yicha maslahat beradi.
+          </p>
+        ) : (
+          ""
         )}
       </div>
       <img className="prewiev__img" src={previewImg} alt="" />

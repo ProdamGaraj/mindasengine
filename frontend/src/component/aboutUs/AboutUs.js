@@ -21,7 +21,7 @@ export const AboutUs = (props) => {
                 МЕЧЕЛ, ММК и т.д.
               </p>
             </>
-          ) : (
+          ) : props.language == "EN" ? (
             <>
               <h2 className="about__title">About us</h2>
               <p className="about__text">
@@ -35,6 +35,23 @@ export const AboutUs = (props) => {
                 Sberbank, Qiwi, MTS, MECHEL, MMK, etc.
               </p>
             </>
+          ) : props.language == "UZ" ? (
+            <>
+              <h2 className="about__title">Biz haqimizda</h2>
+              <p className="about__text">
+                "Mind As Engine" innovatsion korxonasi (may) 35 yoshli axborot
+                texnologiyalari mutaxassislari tajriba, axborotni ishlab chiqish
+                va undan foydalanishni amalga oshiradi ish samaradorligini
+                oshirishni ta'minlaydigan tizimlar va resurslar yirik sanoat
+                xoldinglari va korporatsiyalari. Rahbarlar va mutaxassislar may
+                oyida ishtirok etishdi va loyihalarni boshqarishdi xalqaro
+                vertikal boshqaruv tizimlarini yaratish EVRAZ, Severstal,
+                Sberbank, Qiwi, MTS integratsiyalashgan kompaniyalari, Mechel,
+                mmk va boshqalar.
+              </p>
+            </>
+          ) : (
+            ""
           )}
         </div>
         <div>

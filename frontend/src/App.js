@@ -1,5 +1,5 @@
 import { Route, Routes, RedirectFunction } from "react-router-dom";
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import React from "react";
 
 import { useState } from "react";
@@ -17,6 +17,11 @@ function App() {
   const [state, setState] = useState({
     language: "RU",
   });
+  useEffect(() => {
+    if ("scrollRestoration" in window.history) {
+      window.history.scrollRestoration = "manual";
+    }
+  }, []);
 
   return (
     <div className="overflow">

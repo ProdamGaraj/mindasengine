@@ -4,11 +4,12 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import baseURL from "../../axios";
-import Collapsible from "react-collapsible";
 import ReactResizeDetector from "react-resize-detector";
-import ShowMore from "react-show-more-button/dist";
 import { ShowMoreContent } from "./ShowMore";
-import ShowMoreCustom from "./ShowMoreCustom";
+import AltPhoto from "../../img/mae_placeholder.png";
+import RUalt from "../../img/altPhoto/mae_placeholder_ru.png";
+import ENalt from "../../img/altPhoto/mae_placeholder_en.png";
+import UZalt from "../../img/altPhoto/mae_placeholder_uz.png";
 
 export const Projects = (props) => {
   const [state, setState] = useState({
@@ -48,7 +49,13 @@ export const Projects = (props) => {
     <>
       <div className="main__project container">
         <h1 className="preview__title">
-          {props.language == "RU" ? "Наши проекты" : " Our projects"}
+          {props.language == "RU"
+            ? "Наши проекты"
+            : props.language == "EN"
+            ? " Our projects"
+            : props.language == "UZ"
+            ? "Bizning loyihalarimiz"
+            : ""}
         </h1>
         <ul className="project__list">
           {state.loadingProject ? (
@@ -56,11 +63,14 @@ export const Projects = (props) => {
           ) : (
             state.projectList.map((el, i) => (
               <>
-                <div className="info__name">{el.project.name}</div>
+                <div className="info__name" id={i + "pr"}>
+                  {el.project.name}
+                </div>
                 <li className="item flex justif-ss-betw">
                   <div className="item__info">
                     <div className="info__desc">
                       <ShowMoreContent
+                        i={i}
                         height={heightArray[i] - 45}
                         content={el.project.description}
                       />
@@ -91,15 +101,41 @@ export const Projects = (props) => {
                             },
                           }}
                         >
-                          {el.files.map((file, index) => (
-                            <SwiperSlide>
-                              <img
-                                src={baseURL + "/images/" + file}
-                                alt="Don't show"
-                                style={{ maxWidth: "100%" }}
-                              ></img>
-                            </SwiperSlide>
-                          ))}
+                          {el.files.length > 0 ? (
+                            el.files.map((file, index) => (
+                              <SwiperSlide>
+                                <img
+                                  src={baseURL + "/images/" + file}
+                                  onError={(e) => {
+                                    e.target.onerror = null;
+                                    switch (props.language) {
+                                      case "RU":
+                                        e.target.src = RUalt;
+                                        break;
+                                      case "EN":
+                                        e.target.src = ENalt;
+                                        break;
+                                      case "UZ":
+                                        e.target.src = UZalt;
+                                        break;
+                                      default:
+                                        e.target.src = ""; // Пустая строка, если значение props.language не соответствует ни одному из указанных случаев
+                                    }
+                                  }}
+                                  alt="пусто"
+                                  key={props.language + file}
+                                />
+                              </SwiperSlide>
+                            ))
+                          ) : props.language == "RU" ? (
+                            <img src={RUalt} alt={"пусто"} key={i}></img>
+                          ) : props.language == "EN" ? (
+                            <img src={ENalt} alt={"пусто"} key={i}></img>
+                          ) : props.language == "UZ" ? (
+                            <img src={UZalt} alt={"пусто"} key={i}></img>
+                          ) : (
+                            ""
+                          )}
                         </Swiper>
                       )}
                     </ReactResizeDetector>

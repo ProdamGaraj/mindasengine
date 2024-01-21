@@ -1,17 +1,15 @@
-import axios from 'axios';
+import axios from "axios";
 
 const instance = axios.create({
-    baseURL: 'http://localhost:1337'
+  baseURL: "http://mindasengine.uz",
 });
 
-
-const baseURL = 'http://localhost:1337';   // http://37.77.106.193 - ip для prod backend 
-
+const baseURL = "http://mindasengine.uz"; // http://mindasengine.uz - ip для prod backend
 
 instance.interceptors.request.use((config) => {
-    config.headers.Authorization = window.localStorage.getItem('token');
+  config.headers.Authorization = window.localStorage.getItem("token");
 
-    return config;
+  return config;
 });
 
 export default baseURL;
