@@ -22,7 +22,7 @@ services:
       - mind-as-engine-database
     env_file: environment.env
     volumes:
-      - ./backend/src/main/resources/images:/home/mindasengine/images
+      - /home/mindasengine/res:/home/mindasengine/images
     ports:
       - '1337:1337'
     networks:
