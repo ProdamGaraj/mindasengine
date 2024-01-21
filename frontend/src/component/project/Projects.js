@@ -66,7 +66,7 @@ export const Projects = (props) => {
                 <div className="info__name" id={i + "pr"}>
                   {el.project.name}
                 </div>
-                <li className="item flex justif-ss-betw">
+                <li className="item flex">
                   <div className="item__info">
                     <div className="info__desc">
                       <ShowMoreContent
