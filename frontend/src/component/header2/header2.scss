@@ -1,6 +1,7 @@
 header {
   &.h-2 {
     position: fixed;
+    z-index: 999;
   }
   z-index: 9;
   top: 0;

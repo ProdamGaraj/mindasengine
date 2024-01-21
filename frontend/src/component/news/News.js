@@ -5,6 +5,12 @@ import axios from "axios";
 import baseURL from "../../axios";
 import ReactResizeDetector from "react-resize-detector";
 import { ShowMoreContent } from "./ShowMore";
+import { format, parseISO } from "date-fns";
+import { ru, enUS, uz } from "date-fns/locale";
+import AltPhoto from "../../img/mae_placeholder.png";
+import RUalt from "../../img/altPhoto/mae_placeholder_ru.png";
+import ENalt from "../../img/altPhoto/mae_placeholder_en.png";
+import UZalt from "../../img/altPhoto/mae_placeholder_uz.png";
 
 export const News = (props) => {
   const [state, setState] = useState({
@@ -74,11 +80,19 @@ export const News = (props) => {
       window.removeEventListener("resize", handleHeightChange); // Удаляем слушатель при размонтировании компонента
     };
   }, []);
-
+  console.log(state.newsList[1]);
   return (
     <div className="main__news container">
       <div className="news__title">
-        {props.language == "RU" ? <p>Новости</p> : <p>News</p>}
+        {props.language == "RU" ? (
+          <p>Новости</p>
+        ) : props.language == "EN" ? (
+          <p>News</p>
+        ) : props.language == "UZ" ? (
+          <p>Yangiliklar</p>
+        ) : (
+          ""
+        )}
       </div>
       <ul className="news__list">
         {state.loading ? (
@@ -89,13 +103,27 @@ export const News = (props) => {
               <div className="item__title flex justif-ss-betw">
                 <div
                   className={
-                    el.news.name.length > 50 ? "item__name bg" : "item__name"
+                    el.news.name.length > 70 ? "item__name bg" : "item__name"
                   }
                 >
                   {el.news.name}
                 </div>
                 <div className="item__date">
-                  <p>{el.news.publication}</p>
+                  <p>
+                    {props.language == "RU"
+                      ? format(parseISO(el.news.publication), "d MMMM yyyy", {
+                          locale: ru,
+                        })
+                      : props.language == "EN"
+                      ? format(parseISO(el.news.publication), "d MMMM yyyy", {
+                          locale: enUS,
+                        })
+                      : props.language == "UZ"
+                      ? format(parseISO(el.news.publication), "d MMMM yyyy", {
+                          locale: uz,
+                        })
+                      : ""}
+                  </p>
                 </div>
               </div>
               <div className="item__main flex justif-ss-betw">
@@ -122,22 +150,62 @@ export const News = (props) => {
                           },
                         }}
                       >
-                        {el.files.map((file, index) => (
-                          <SwiperSlide>
-                            <img
-                              src={baseURL + "/images/" + file}
-                              alt="Don't show"
-                              key={i}
-                            ></img>
-                          </SwiperSlide>
-                        ))}
+                        {el.files.length > 0 ? (
+                          el.files.map((file, index) => (
+                            <SwiperSlide>
+                              <img
+                                src={baseURL + "/images/" + file}
+                                onError={(e) => {
+                                  e.target.onerror = null;
+                                  switch (props.language) {
+                                    case "RU":
+                                      e.target.src = RUalt;
+                                      break;
+                                    case "EN":
+                                      e.target.src = ENalt;
+                                      break;
+                                    case "UZ":
+                                      e.target.src = UZalt;
+                                      break;
+                                    default:
+                                      e.target.src = ""; // Пустая строка, если значение props.language не соответствует ни одному из указанных случаев
+                                  }
+                                }}
+                                alt="пусто"
+                                key={props.language + file}
+                              />
+                            </SwiperSlide>
+                          ))
+                        ) : props.language == "RU" ? (
+                          <img src={RUalt} alt={"пусто"} key={i}></img>
+                        ) : props.language == "EN" ? (
+                          <img src={ENalt} alt={"пусто"} key={i}></img>
+                        ) : props.language == "UZ" ? (
+                          <img src={UZalt} alt={"пусто"} key={i}></img>
+                        ) : (
+                          ""
+                        )}
                       </Swiper>
                     )}
                   </ReactResizeDetector>
                 </div>
 
                 <div className="item__date-mob">
-                  <p>{el.news.publication}</p>
+                  <p>
+                    {props.language == "RU"
+                      ? format(parseISO(el.news.publication), "d MMMM yyyy", {
+                          locale: ru,
+                        })
+                      : props.language == "EN"
+                      ? format(parseISO(el.news.publication), "d MMMM yyyy", {
+                          locale: enUS,
+                        })
+                      : props.language == "UZ"
+                      ? format(parseISO(el.news.publication), "d MMMM yyyy", {
+                          locale: uz,
+                        })
+                      : ""}
+                  </p>
                 </div>
                 <div className="item__trigger">
                   <div className="item__content">
@@ -156,9 +224,19 @@ export const News = (props) => {
       <div className="news__button">
         {state.counter < state.newsList.length ? (
           <button
-            onClick={() => setState({ ...state, counter: state.counter + 1 })}
+            onClick={() => {
+              setState({ ...state, counter: state.counter + 1 });
+            }}
           >
-            Показать ещё новость
+            {props.language == "RU" ? (
+              <p>Показать ещё новость</p>
+            ) : props.language == "EN" ? (
+              <p>Show more news</p>
+            ) : props.language == "UZ" ? (
+              <p>Ko'proq yangiliklarni ko'rsating</p>
+            ) : (
+              ""
+            )}
           </button>
         ) : (
           ""

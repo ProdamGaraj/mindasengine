@@ -4,16 +4,19 @@ import { AboutUs } from "../../component/aboutUs/AboutUs";
 import { News } from "../../component/news/News";
 import { Contact } from "../../component/contact/Contact";
 import { motion } from "framer-motion";
+import { useEffect } from "react";
+import React, { Component } from "react";
 
 import "../main/main.scss";
 
- const Main = (props) => {
+function Main(props) {
+  
   return (
     <motion.main
       className="main"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ duration: 1 }}
+      transition={{ duration: 1.2 }}
     >
       <section id="preview">
         <Preview language={props.language} />
@@ -32,6 +35,6 @@ import "../main/main.scss";
       </section>
     </motion.main>
   );
-};
+}
 
 export default Main;

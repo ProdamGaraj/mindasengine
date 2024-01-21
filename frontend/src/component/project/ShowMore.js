@@ -8,7 +8,8 @@ export const ShowMoreContent = (props) => {
     showMore: false,
     textHeight: 0,
     strN: 0,
-    index: props.i
+    index: props.i,
+    transition: 0
   });
 
   const blockRef = useRef(null);
@@ -64,11 +65,16 @@ export const ShowMoreContent = (props) => {
         style={
           state.textHeight > props.height
             ? state.showMore
-              ? { height: state.textHeight + "px", overflow: "hidden" }
+              ? {
+                  height: state.textHeight + "px",
+                  overflow: "hidden",
+                  transition: `height ${state.transition} ease`,
+                }
               : {
                   height:
                     Math.round(props.height / fontSize - 2) * fontSize + "px",
                   overflow: "hidden",
+                  transition: `height ${state.transition} ease`,
                 }
             : {
                 // maxHeight:
@@ -79,7 +85,8 @@ export const ShowMoreContent = (props) => {
       >
         <div ref={textDivRef}>{props.content}</div>
       </p>
-      {state.textHeight > Math.round(props.height / fontSize - 2) * fontSize && state.textHeight > props.height ? (
+      {state.textHeight > Math.round(props.height / fontSize - 2) * fontSize &&
+      state.textHeight > props.height ? (
         <>
           <div
             className="flex showMore__btn"

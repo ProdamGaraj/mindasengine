@@ -9,7 +9,7 @@ export const DropdownHeader = (props) => {
   const [state, setState] = useState({
     language: "RU",
   });
-  const options = ["RU", "EN"];
+  const options = ["RU", "EN", "UZ"];
   const defaultOption = options[0];
   const handleOption = (e) => {
     setState({ ...state, language: e.target });
