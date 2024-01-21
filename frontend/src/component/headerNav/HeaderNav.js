@@ -14,7 +14,7 @@ export const HeaderNav = () => {
             offset={-70}
             duration={700}
           >
-            Новости
+            <a href="#">Новости</a>
           </Link>
         </li>
         <li className="nav__item">

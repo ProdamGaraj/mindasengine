@@ -14,6 +14,7 @@ export const ContactsHeader = () => {
           <p>Mindasengine@gmail.com</p>
         </li>
       </ul>
+      
     </div>
   );
 };

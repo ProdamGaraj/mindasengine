@@ -3,9 +3,9 @@ version: '3.8'
 services:
   mind-as-engine-frontend:
     container_name: mind-as-engine-frontend
-    image: mind-as-engine-frontendfrontend
-    build: 
-      context: /frontend
+    image: mind-as-engine-frontend
+    build:
+      context: ./frontend
     depends_on:
       - mind-as-engine-backend
     ports:
@@ -17,7 +17,7 @@ services:
     container_name: mind-as-engine-backend
     image: mind-as-engine-backend
     build:
-      context: /backend
+      context: ./backend
     depends_on:
       - mind-as-engine-database
     env_file: environment.env

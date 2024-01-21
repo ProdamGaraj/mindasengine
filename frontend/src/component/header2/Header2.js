@@ -4,9 +4,9 @@ import { Logo } from "../logo/Logo";
 import { ContactsHeader } from "../headerCont/ContactHeader";
 import { motion } from "framer-motion";
 
-export const Header2 = (props) => {
+ const Header2 = (props) => {
   return (
-    <header>
+    <header className="h-2">
       <motion.div
         className="header__wrapper flex justif-ss-betw align-cent container"
       >
@@ -17,3 +17,5 @@ export const Header2 = (props) => {
     </header>
   );
 };
+
+export default Header2;
