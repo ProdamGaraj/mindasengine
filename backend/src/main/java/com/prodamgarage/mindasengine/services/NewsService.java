@@ -33,7 +33,7 @@ public class NewsService implements PostService<News> {
     public List<NewsResponse> getAll() {
         LocalDate currentDate = LocalDate.now();
         List<NewsResponse> response = new ArrayList<>();
-        Iterable<News> newsList = newsRepository.findByPublicationLessThanEqual(currentDate);
+        Iterable<News> newsList = newsRepository.findByPublicationLessThanEqualOrderByPublicationDesc(currentDate);
         for (News news : newsList) {
             List<Photo> photos = photoService.getPhotosByObject(news);
             response.add(new NewsResponse(news, photos.stream().map(Photo::getFilename).toList()));

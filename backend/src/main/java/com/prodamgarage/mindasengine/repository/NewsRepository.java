@@ -10,5 +10,5 @@ import java.util.Optional;
 @Repository
 public interface NewsRepository extends JpaRepository<News, Long> {
     Optional<News> findById(Long id);
-    List<News> findByPublicationLessThanEqual(LocalDate date);
+    List<News> findByPublicationLessThanEqualOrderByPublicationDesc(LocalDate date);
 }
